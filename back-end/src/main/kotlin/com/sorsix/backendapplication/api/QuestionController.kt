@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/questions")
 class QuestionController(
     val questionService: QuestionService,
-    val tagService: TagService,
+    val tagService: TagService
 ) {
 
     @GetMapping
