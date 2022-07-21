@@ -7,6 +7,7 @@ import com.sorsix.backendapplication.repository.QuestionTagRepository
 import com.sorsix.backendapplication.repository.TagRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import javax.transaction.Transactional
 
 @Service
 class QuestionService(
@@ -24,6 +25,7 @@ class QuestionService(
         return questionRepository.findAll();
     }
 
+    @Transactional
     fun createQuestion(
         title: String,
         questionText: String,
@@ -32,13 +34,9 @@ class QuestionService(
         tagsId: List<Long>?,
     ): QuestionResult {
         val tags = tagsId?.let { tagRepository.findAllById(it) }
-        println(tags)
-        //val appUser = appUserRepository.findByIdOrNull(appUserId);
         val appUser: AppUser? = appUserId.let {
             appUserRepository.findByIdOrNull(it)
         }
-        println(appUser)
-        //val parentQuestion = questionRepository.findByIdOrNull(parentQuestionId);
         val parentQuestion: Question? = parentQuestionId.let {
             if (it != null) {
                 questionRepository.findByIdOrNull(it)
@@ -46,18 +44,42 @@ class QuestionService(
                 null;
             }
         }
-        println(parentQuestion)
-
         return if (tags == null || appUser == null) {
             QuestionFailed("error :)")
         } else {
+
             val question = Question(title = title, questionText = questionText,
                 parentQuestion = parentQuestion, user = appUser)
+            println(question)
+            println(tags);
             questionRepository.save(question);
-
+            tags.forEach { it -> questionTagRepository.save(QuestionTag(0, question = question, tag = it)) }
             QuestionCreated(question = question);
         }
 
+
+    }
+
+    @Transactional
+    fun postAnswer(
+        title: String,
+        questionText: String,
+        parentQuestionId: Long,
+        appUserId: Long,
+    ): QuestionResult {
+        val appUser: AppUser? = appUserId.let {
+            appUserRepository.findByIdOrNull(it)
+        }
+        val parentQuestion: Question? = parentQuestionId.let { questionRepository.findByIdOrNull(it) }
+        return if (appUser == null || parentQuestion == null) {
+            QuestionFailed("error creating answer:)")
+        } else {
+            val question = Question(title = title, questionText = questionText,
+                parentQuestion = parentQuestion, user = appUser)
+            println(question)
+            questionRepository.save(question);
+            QuestionCreated(question = question);
+        }
     }
 
     fun findById(id: Long): Question? {

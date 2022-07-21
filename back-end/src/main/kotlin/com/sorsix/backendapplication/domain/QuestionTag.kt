@@ -6,8 +6,8 @@ import javax.persistence.*
 @Table(name = "question_tag")
 data class QuestionTag(
     @Id
-    @GeneratedValue
-    val id: Long,
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val id: Long = 0,
 
     @ManyToOne
     @JoinColumn(name = "question_id")

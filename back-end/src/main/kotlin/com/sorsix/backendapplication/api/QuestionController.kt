@@ -1,5 +1,6 @@
 package com.sorsix.backendapplication.api
 
+import com.sorsix.backendapplication.api.dto.AnswerRequest
 import com.sorsix.backendapplication.api.dto.QuestionRequest
 import com.sorsix.backendapplication.domain.Question
 import com.sorsix.backendapplication.domain.QuestionCreated
@@ -36,6 +37,27 @@ class QuestionController(
             request.appUserId,
             request.tagsId)
 
+        val resultString = when (result) {
+            is QuestionCreated -> {
+                result.question.toString();
+            }
+            is QuestionFailed -> {
+                "Failed because " + result.errorMessage;
+            }
+        }
+        return if (result.success()) {
+            ResponseEntity.ok(resultString);
+        } else {
+            ResponseEntity.badRequest().body(resultString);
+        }
+    }
+
+    @PostMapping("/postAnswer/{id}")
+    fun postAnswerToQuestion(@PathVariable id: Long, @RequestBody request: AnswerRequest): ResponseEntity<String> {
+        val result = questionService.postAnswer(request.title,
+            request.questionText,
+            request.parentQuestionId,
+            request.appUserId)
         val resultString = when (result) {
             is QuestionCreated -> {
                 result.question.toString();
