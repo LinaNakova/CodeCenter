@@ -54,3 +54,22 @@ h3
 {
   color: #FA2742;
 }
+.bold{
+  font-weight: bold;
+}
+.regularBold
+{
+  font-weight: normal;
+}
+.italic
+{
+  font-style: italic;
+}
+.italicNormal
+{
+  font-style: normal;
+}
+.styleButton
+{
+  margin: 5px;
+}

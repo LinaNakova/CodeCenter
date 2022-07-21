@@ -1,6 +1,8 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
+
   <div class="questions">
-    <app-question *ngFor="let question of allQuestions" [question] = question></app-question>
+    <app-question *ngFor="let question of allQuestions" [question] = question routerLink="/questions/{{question.id}}"></app-question>
   </div>
+
 </div>

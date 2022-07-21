@@ -13,6 +13,8 @@ export class CodeService {
   questionsWithoutAnswersUrl = "/api/questions/withoutAnswers";
   tagsUrl = "/api/tag"
   customWordUrl = "/api/questions/tagged"
+  questionDetailsUrl = "/api/questions"
+  questionAnswersUrl = "/api/questions/answers"
 
   constructor(private httpClient: HttpClient) { }
 
@@ -32,6 +34,15 @@ export class CodeService {
   {
     return this.httpClient.get<TagInterface[]>(`${this.tagsUrl}`);
   }
+  getQuestionDetails(id : number) : Observable<QuestionInterface>
+  {
+    return this.httpClient.get<QuestionInterface>(`${this.questionDetailsUrl}/${id}`)
+  }
+  getQuestionAnswers(id : number) : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.questionAnswersUrl}/${id}`)
+  }
+
 
   postForm(title: any,
            questionText: any,
@@ -44,7 +55,24 @@ export class CodeService {
       parentQuestionId: parentQuestionId,
       appUserId: appUserId,
       tagsId: tagsId}
-    this.httpClient.post("http://localhost:8080/api/questions",formObj )
+    this.httpClient.post("http://localhost:4200/api/questions",formObj )
+      .subscribe({
+        next:(response) => console.log(response),
+        error:(error) => console.log(error),
+      })
+  }
+  postAnswer(title: any,
+             questionText: any,
+             parentQuestionId: number | null,
+             appUserId: number,
+             tagsId: number[])
+  {
+    const formObj : FormInterface = {title: title,
+      questionText: questionText,
+      parentQuestionId: parentQuestionId,
+      appUserId: appUserId,
+      tagsId: tagsId}
+    this.httpClient.post(`http://localhost:4200/api/questions/postAnswer/${parentQuestionId}`,formObj )
       .subscribe({
         next:(response) => console.log(response),
         error:(error) => console.log(error),

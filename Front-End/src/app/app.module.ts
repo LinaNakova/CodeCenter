@@ -15,6 +15,9 @@ import { TopQuestionsComponent } from './top-questions/top-questions.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { QuestionDetailsComponent } from './question-details/question-details.component';
+import { QuestionAnswersComponent } from './question-answers/question-answers.component';
+import { PostAnswerComponent } from './post-answer/post-answer.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     TagComponent,
     TagsComponent,
     TopQuestionsComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    QuestionDetailsComponent,
+    QuestionAnswersComponent,
+    PostAnswerComponent
   ],
   imports: [
     BrowserModule,
