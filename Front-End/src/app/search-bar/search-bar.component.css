@@ -1,0 +1,37 @@
+.container-fluid
+{
+  background-color: #FA2742;
+}
+.navbar{
+  background-color: #FA2742;
+}
+input
+{
+  border-color: #FFFFFF;
+  width: 60%;
+}
+.btn-outline-success
+{
+  background-color: #FFF;
+  color: #FA2742;
+  border-color: #FFFFFF;
+}
+a{
+  text-decoration: none;
+  color: #FFFFFF;
+  font-family: Arial;
+  font-weight: bold;
+  font-size: x-large;
+}
+#logo
+{
+  padding-left: 5px;
+}
+img
+{
+  margin-left: 15px;
+}
+#login
+{
+  margin-right: 15px;
+}

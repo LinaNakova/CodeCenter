@@ -1,0 +1,6 @@
+<div class="proba">
+  <app-heading [title]="title"></app-heading>
+  <div class="questions">
+    <app-question *ngFor="let question of allQuestions" [question] = question></app-question>
+  </div>
+</div>

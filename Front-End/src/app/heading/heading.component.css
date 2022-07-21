@@ -1,0 +1,16 @@
+.heading
+{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+}
+.btn-outline-success
+{
+  background-color: #FA2742;
+  color: #FFFFFF;
+  border-color: #FA2742;
+}
+h3
+{
+  color: #FA2742;
+}
