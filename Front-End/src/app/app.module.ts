@@ -12,12 +12,17 @@ import { SearchBarComponent } from './search-bar/search-bar.component';
 import { TagComponent } from './tag/tag.component';
 import { TagsComponent } from './tags/tags.component';
 import { TopQuestionsComponent } from './top-questions/top-questions.component';
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { QuestionDetailsComponent } from './question-details/question-details.component';
 import { QuestionAnswersComponent } from './question-answers/question-answers.component';
 import { PostAnswerComponent } from './post-answer/post-answer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatButtonModule} from "@angular/material/button";
+import {NetworkInterceptor} from "./network.interceptor";
 
 @NgModule({
   declarations: [
@@ -41,9 +46,17 @@ import { PostAnswerComponent } from './post-answer/post-answer.component';
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatToolbarModule,
+    MatProgressSpinnerModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: NetworkInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

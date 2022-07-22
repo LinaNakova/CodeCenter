@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable} from "rxjs";
+import {Observable, retry, tap} from "rxjs";
 import {QuestionInterface} from "./questionInterface";
 import {TagInterface} from "./tagInterface";
 import {FormInterface} from "./form";
@@ -15,6 +15,7 @@ export class CodeService {
   customWordUrl = "/api/questions/tagged"
   questionDetailsUrl = "/api/questions"
   questionAnswersUrl = "/api/questions/answers"
+  questionTagsUrl = "api/questions/tags"
 
   constructor(private httpClient: HttpClient) { }
 
@@ -42,6 +43,10 @@ export class CodeService {
   {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionAnswersUrl}/${id}`)
   }
+  getQuestionTags(id : number) : Observable<String[]>
+  {
+    return this.httpClient.get<String[]>(`${this.questionTagsUrl}/${id}`)
+  }
 
 
   postForm(title: any,
@@ -63,19 +68,15 @@ export class CodeService {
   }
   postAnswer(title: any,
              questionText: any,
-             parentQuestionId: number | null,
+             parentQuestionId: number | undefined | null,
              appUserId: number,
-             tagsId: number[])
+             tagsId: number[]) : Observable<QuestionInterface>
   {
     const formObj : FormInterface = {title: title,
       questionText: questionText,
       parentQuestionId: parentQuestionId,
       appUserId: appUserId,
       tagsId: tagsId}
-    this.httpClient.post(`http://localhost:4200/api/questions/postAnswer/${parentQuestionId}`,formObj )
-      .subscribe({
-        next:(response) => console.log(response),
-        error:(error) => console.log(error),
-      })
+    return this.httpClient.post<QuestionInterface>(`http://localhost:4200/api/questions/postAnswer/${parentQuestionId}`,formObj )
   }
 }
