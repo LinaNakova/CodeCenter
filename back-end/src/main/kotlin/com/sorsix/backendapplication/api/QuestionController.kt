@@ -53,14 +53,14 @@ class QuestionController(
     }
 
     @PostMapping("/postAnswer/{id}")
-    fun postAnswerToQuestion(@PathVariable id: Long, @RequestBody request: AnswerRequest): ResponseEntity<String> {
+    fun postAnswerToQuestion(@PathVariable id: Long, @RequestBody request: AnswerRequest): ResponseEntity<Any> {
         val result = questionService.postAnswer(request.title,
             request.questionText,
             request.parentQuestionId,
             request.appUserId)
         val resultString = when (result) {
             is QuestionCreated -> {
-                result.question.toString();
+                result.question;
             }
             is QuestionFailed -> {
                 "Failed because " + result.errorMessage;
@@ -87,5 +87,10 @@ class QuestionController(
     fun getAllQuestionsWithMentionedWord(@PathVariable("word") word: String): List<Question>? {
         return questionService.findAllQuestionsWithMentionedWord(word);
 
+    }
+    @GetMapping("/tags/{id}")
+    fun getQuestionTags(@PathVariable id : Long): List<String>
+    {
+        return questionService.getQuestionTags(id).map { it.tag.name}
     }
 }

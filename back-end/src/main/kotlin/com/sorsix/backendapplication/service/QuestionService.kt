@@ -93,5 +93,13 @@ class QuestionService(
     fun findAllQuestionsWithMentionedWord(word: String): List<Question>? {
         return questionRepository.findAll().filter { it.title.contains(word) || it.questionText.contains(word) }
     }
+    fun getAllQuestionTags(id : Long) : List<QuestionTag>
+    {
+        return questionTagRepository.findAll()
+    }
+    fun getQuestionTags(id : Long) : List<QuestionTag>
+    {
+        return getAllQuestionTags(id).filter { it.question.id == id }
+    }
 
 }
