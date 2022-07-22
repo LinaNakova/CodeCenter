@@ -13,7 +13,7 @@ data class AppUser(
     val name: String,
     val surname: String,
     val email: String,
+    val password: String,
     @Enumerated(value = EnumType.STRING)
     val appUserRole: AppUserRole,
-
-    )
+)

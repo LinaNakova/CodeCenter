@@ -5,6 +5,7 @@ CREATE TABLE app_users
     name          text not null,
     surname       text not null,
     email         text not null,
+    password      text not null,
     app_user_role text default 'USER'
 );
 
