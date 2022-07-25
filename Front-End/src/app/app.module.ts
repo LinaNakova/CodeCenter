@@ -17,11 +17,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SearchResultsComponent} from './search-results/search-results.component';
 import {QuestionDetailsComponent} from './question-details/question-details.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatButtonModule} from "@angular/material/button";
-import {NgxPaginationModule} from 'ngx-pagination';
 import {AddTagComponent} from './add-tag/add-tag.component';
+import {NgxPaginationModule} from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -46,10 +43,7 @@ import {AddTagComponent} from './add-tag/add-tag.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatProgressSpinnerModule,
-    NgxPaginationModule
+    NgxPaginationModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
