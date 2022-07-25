@@ -5,6 +5,7 @@ import com.sorsix.backendapplication.repository.AppUserRepository
 import com.sorsix.backendapplication.repository.QuestionRepository
 import com.sorsix.backendapplication.repository.QuestionTagRepository
 import com.sorsix.backendapplication.repository.TagRepository
+import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import javax.transaction.Transactional
@@ -101,5 +102,10 @@ class QuestionService(
     {
         return getAllQuestionTags(id).filter { it.question.id == id }
     }
+    fun getSortedByTitle() : List<Question>
+    {
+        return this.questionRepository.findAll(Sort.by("title")).filter { it.parentQuestion == null }
+    }
+
 
 }

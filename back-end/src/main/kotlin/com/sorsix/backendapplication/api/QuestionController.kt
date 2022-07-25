@@ -93,4 +93,9 @@ class QuestionController(
     {
         return questionService.getQuestionTags(id).map { it.tag.name}
     }
+    @GetMapping("/sorted")
+    fun getSortedQuestions() : List<Question>
+    {
+        return this.questionService.getSortedByTitle()
+    }
 }
