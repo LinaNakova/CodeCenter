@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Observable, retry, tap} from "rxjs";
+import {Observable, of, retry, tap} from "rxjs";
 import {QuestionInterface} from "./questionInterface";
 import {TagInterface} from "./tagInterface";
 import {FormInterface} from "./form";
+import {TagFormInterface} from "./TagFormInterface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeService {
   questionsUrl = "/api/questions";
+  topQuestionsUrl = "/api/questions/sorted"
   questionsWithoutAnswersUrl = "/api/questions/withoutAnswers";
   tagsUrl = "/api/tag"
   customWordUrl = "/api/questions/tagged"
@@ -22,6 +24,10 @@ export class CodeService {
   getQuestions() : Observable<QuestionInterface[]>
   {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}`)
+  }
+  getTopQuestions() : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.topQuestionsUrl}`)
   }
   getQuestionsWithoutAnswers() : Observable<QuestionInterface[]>
   {
@@ -78,5 +84,21 @@ export class CodeService {
       appUserId: appUserId,
       tagsId: tagsId}
     return this.httpClient.post<QuestionInterface>(`http://localhost:4200/api/questions/postAnswer/${parentQuestionId}`,formObj )
+  }
+  searchTags(tag:String) : Observable<TagInterface[]>
+  {
+    if (!tag.trim()) {
+      return of([]);
+    }
+    return this.httpClient.get<TagInterface[]>(`http://localhost:4200/api/tag/search/${tag}`)
+  }
+  postTag(name:string, description:string)
+  {
+    const tag : TagFormInterface = {name : name, description : description}
+    this.httpClient.post("http://localhost:4200/api/tag",tag )
+      .subscribe({
+        next:(response) => console.log(response),
+        error:(error) => console.log(error),
+      })
   }
 }

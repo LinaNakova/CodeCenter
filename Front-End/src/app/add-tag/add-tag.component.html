@@ -1,0 +1,42 @@
+<div class="proba">
+  <app-heading [title]="title"></app-heading>
+  <div class="cont">
+    <div class="left">
+      <form [formGroup]="form" (ngSubmit)="submitForm()">
+        <div class="mb-3 form-group">
+          <label for="exampleFormControlInput1" class="form-label">Tag Name</label>
+          <input type="text" formControlName="name" class="form-control" id="exampleFormControlInput1"
+                 placeholder="Enter name here...">
+        </div>
+        <div class="mb-3 form-group">
+          <label for="exampleFormControlTextarea1" class="form-label">Description</label>
+          <p>Enter a detailed description of the tag you want to add</p>
+          <textarea formControlName="description" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                    placeholder="Enter problem description here..."></textarea>
+        </div>
+        <button type="submit" value="Submit" class="btn btn-outline-success">Submit</button>
+      </form>
+    </div>
+    <div class="right">
+      <h3>Steps</h3>
+      <div class="steps">
+        <p>1.Summarize the problem
+          Include details about your goal
+          Describe expected and actual results
+          Include any error messages</p>
+      </div>
+      <div class="steps">
+        <p>2.Describe what you’ve tried
+          Show what you’ve tried and tell us what you found
+          (on this site or elsewhere) and why it didn’t meet
+          your needs. You can get better answers when you provide research.</p>
+      </div>
+      <div class="steps">
+        <p>3.Show some code
+          When appropriate, share the minimum amount of
+          code others need to reproduce your problem
+          (also called a minimum, reproducible example)</p>
+      </div>
+    </div>
+  </div>
+</div>

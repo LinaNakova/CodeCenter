@@ -3,25 +3,24 @@
   <hr>
   <p>{{question?.questionText}}</p>
   <div class="tags">
-    <p *ngFor="let t of tags">{{t}}</p>
+    <p *ngFor="let t of tags" class="tag">{{t}}</p>
   </div>
+  <h5>{{answers.length}} Answers</h5>
+  <app-question *ngFor="let a of answers" [question]="a" ></app-question>
+
+  <form [formGroup]="form" (ngSubmit)="submitForm()">
+    <div class="mb-3 form-group">
+      <label for="exampleFormControlInput1" class="form-label">Title</label>
+      <p>Be specific and imagine you’re asking a question to another person</p>
+      <input type="text" formControlName="title" class="form-control" id="exampleFormControlInput1"
+             placeholder="Enter title here..." [(ngModel)]="input1">
+    </div>
+    <div class="mb-3 form-group">
+      <label for="exampleFormControlTextarea1" class="form-label">Body</label>
+      <p>Include all the information someone would need to answer your question</p>
+      <textarea formControlName="questionText" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                placeholder="Enter problem description here..." [(ngModel)]="input2"></textarea>
+    </div>
+    <button type="submit" value="Submit" class="btn btn-outline-success">Submit</button>
+  </form>
 </div>
-<!--<mat-progress-spinner [mode]="'indeterminate'" *ngIf="loading$ | async"></mat-progress-spinner>-->
-
-<p *ngFor="let a of answers">{{a?.title}}</p>
-
-<form [formGroup]="form" (ngSubmit)="submitForm()">
-  <div class="mb-3 form-group">
-    <label for="exampleFormControlInput1" class="form-label">Title</label>
-    <p>Be specific and imagine you’re asking a question to another person</p>
-    <input type="text" formControlName="title" class="form-control" id="exampleFormControlInput1"
-           placeholder="Enter title here...">
-  </div>
-  <div class="mb-3 form-group">
-    <label for="exampleFormControlTextarea1" class="form-label">Body</label>
-    <p>Include all the information someone would need to answer your question</p>
-    <textarea formControlName="questionText" class="form-control" id="exampleFormControlTextarea1" rows="3"
-              placeholder="Enter problem description here..."></textarea>
-  </div>
-  <button type="submit" value="Submit" class="btn btn-outline-success">Submit</button>
-</form>

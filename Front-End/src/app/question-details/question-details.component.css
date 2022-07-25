@@ -12,9 +12,9 @@
 }
 .btn-outline-success
 {
-  background-color: #CA826D;
-  color: #383A21;
-  border-color: #af6c55;
+  background-color: #FA2742;
+  color: #FFFFFF;
+  border-color: #FA2742;
 }
 h3
 {
@@ -25,4 +25,17 @@ app-question
   left: 0;
   right: 0;
   width: 100%;
+}
+.tags
+{
+  display: flex;
+  justify-content: flex-start;
+}
+.tag
+{
+  background-color: #FA2742;
+  color: #FFFFFF;
+  padding: 5px;
+  margin: 5px;
+  border-radius: 5px;
 }

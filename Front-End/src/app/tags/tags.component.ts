@@ -8,7 +8,6 @@ import {CodeService} from "../code.service";
   styleUrls: ['./tags.component.css']
 })
 export class TagsComponent implements OnInit {
-  // tags : number [] = [1,2,3,4,5,6,7,8,9]
   tags : TagInterface[] =[]
   tagNum : number = 0
   title="Tags"

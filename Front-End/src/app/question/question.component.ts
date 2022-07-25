@@ -12,10 +12,12 @@ export class QuestionComponent implements OnInit {
   @Input()
   question : QuestionInterface | undefined
   tags : String [] = []
+  answers : number | undefined
   destroySubject$ = new Subject<void>()
   constructor(private service : CodeService) { }
 
   ngOnInit(): void {
+    console.log(this.question?.id)
     this.service.getQuestionTags(this.question!!.id)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
@@ -23,6 +25,14 @@ export class QuestionComponent implements OnInit {
           console.log(tags)
           this.tags = tags
         }
+      })
+    this.service.getQuestionAnswers(this.question!.id)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({
+        next: (answ) =>
+      {
+      this.answers = answ.length
+      }
       })
   }
   ngOnDestroy() : void
