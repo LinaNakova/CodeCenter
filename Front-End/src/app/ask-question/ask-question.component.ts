@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {CodeService} from "../code.service";
 import {Route, Router} from "@angular/router";
+import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from "rxjs";
+import {TagInterface} from "../tagInterface";
 
 @Component({
   selector: 'app-ask-question',
@@ -10,12 +12,14 @@ import {Route, Router} from "@angular/router";
 })
 export class AskQuestionComponent implements OnInit {
   title = "Ask a Question"
-  listOfTags: number [] = [323, 54353, 231, 5454]
+  listOfTags: number [] = []
   userId: number = 1
   parentQuestionId = null;
   form: FormGroup;
   bold = false;
   italic = false;
+  tags$! :Observable<TagInterface[]>
+  private searchTerms = new Subject<string>();
 
   constructor(public fb: FormBuilder, private service: CodeService, private router: Router) {
     this.form = this.fb.group({
@@ -26,8 +30,16 @@ export class AskQuestionComponent implements OnInit {
       tagsId: [null],
     })
   }
+  search(term: string): void {
+    this.searchTerms.next(term);
+  }
 
   ngOnInit(): void {
+    this.tags$ = this.searchTerms.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      switchMap((term: string) => this.service.searchTags(term)),
+    );
   }
 
   submitForm() {
@@ -46,6 +58,11 @@ export class AskQuestionComponent implements OnInit {
   makeItalic()
   {
     this.italic = !this.italic;
+  }
+  addToTagList(id : number)
+  {
+    console.log(id)
+    this.listOfTags.push(id)
   }
 
 }

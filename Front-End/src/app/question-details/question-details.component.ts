@@ -12,9 +12,9 @@ import {ActivatedRoute} from "@angular/router";
   styleUrls: ['./question-details.component.css']
 })
 export class QuestionDetailsComponent implements OnInit, OnDestroy {
+  input1:String|undefined
+  input2:String|undefined
   question: QuestionInterface | undefined
-  answers$: Observable<QuestionInterface[]> | undefined;
-  params = location.pathname.split("/")
   form: FormGroup;
   userId = 1;
   answers: QuestionInterface[] = [];
@@ -76,9 +76,10 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       this.userId,
       []
     ).pipe(take(1)).subscribe((response: QuestionInterface) => {
-      console.log(response);
       this.answers.push(response);
     })
+    this.input1=""
+    this.input2=""
   }
 
   ngOnDestroy() {

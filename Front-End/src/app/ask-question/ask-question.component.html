@@ -22,9 +22,16 @@
                       'regularBold italicNormal'"></textarea>
         </div>
         <div class="mb-3 form-group">
-          <label for="exampleFormControlInput2" class="form-label">Tags</label>
+          <label for="search-box" class="form-label">Tags</label>
           <p>Add up to 5 tags to describe what your question is about</p>
-          <input type="text" class="form-control" id="exampleFormControlInput2">
+          <input type="text" class="form-control" #searchBox id="search-box" (input)="search(searchBox.value)">
+          <ul class="search-result">
+            <li *ngFor="let tag of tags$ | async" >
+              <a (click)="addToTagList(tag.id)">
+                {{tag.name}}
+              </a>
+            </li>
+          </ul>
         </div>
         <button type="submit" value="Submit" class="btn btn-outline-success">Submit</button>
       </form>

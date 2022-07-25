@@ -2,7 +2,19 @@
   <app-heading [title]="title"></app-heading>
 
   <div class="questions">
-    <app-question *ngFor="let question of allQuestions" [question] = question routerLink="/questions/{{question.id}}"></app-question>
+    <app-question *ngFor="let question of allQuestions
+                  | paginate: {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: count};
+                  let i = index"
+                  [question] = question
+                  routerLink="/questions/{{question.id}}"></app-question>
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
   </div>
 
 </div>

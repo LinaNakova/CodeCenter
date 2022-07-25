@@ -23,6 +23,8 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatButtonModule} from "@angular/material/button";
 import {NetworkInterceptor} from "./network.interceptor";
+import { NgxPaginationModule } from 'ngx-pagination';
+import { AddTagComponent } from './add-tag/add-tag.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import {NetworkInterceptor} from "./network.interceptor";
     SearchResultsComponent,
     QuestionDetailsComponent,
     QuestionAnswersComponent,
-    PostAnswerComponent
+    PostAnswerComponent,
+    AddTagComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import {NetworkInterceptor} from "./network.interceptor";
     BrowserAnimationsModule,
     MatButtonModule,
     MatToolbarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    NgxPaginationModule
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

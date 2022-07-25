@@ -26,3 +26,16 @@ app-question
   right: 0;
   width: 100%;
 }
+.current{
+  padding: .1875rem .625rem;
+  background: #FA2742 !important;
+  color: #fefefe;
+  cursor: default;
+}
+.myPagination::ng-deep .page-item.active .page-link {
+  z-index: 1;
+  color: #FFFFFF;
+  background-color:#FA2742 !important;
+  border-color: #FA2742;
+}
+
