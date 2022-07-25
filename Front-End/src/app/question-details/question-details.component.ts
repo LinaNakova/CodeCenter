@@ -1,7 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CodeService} from "../code.service";
 import {QuestionInterface} from "../questionInterface";
-import {LoadingService} from "../loading.service";
 import { filter, map, Observable, Subject, take, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
@@ -24,7 +23,6 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
 
   constructor(public fb: FormBuilder,
               private service: CodeService,
-              public loader: LoadingService,
               private _route: ActivatedRoute) {
     this.form = this.fb.group({
       title: [""],
