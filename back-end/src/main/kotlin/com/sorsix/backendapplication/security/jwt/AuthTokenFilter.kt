@@ -54,4 +54,3 @@ class AuthTokenFilter(val jwtUtils: JwtUtils, val appUserService: AppUserService
         return null
     }
 }
-
