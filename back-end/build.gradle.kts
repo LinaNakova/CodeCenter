@@ -17,16 +17,21 @@ repositories {
 }
 
 dependencies {
-    implementation("org.springframework.boot:spring-boot-starter-data-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-jdbc")
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.springframework.boot:spring-boot-starter-data-jdbc:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-jdbc:2.7.0")
+    implementation("org.springframework.boot:spring-boot-starter-security:2.7.0")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    implementation("org.springframework.boot:spring-boot-starter-web:2.7.0")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.3")
     implementation("org.flywaydb:flyway-core")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    runtimeOnly("org.postgresql:postgresql")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("com.auth0:java-jwt:3.19.2")
+    implementation("io.jsonwebtoken:jjwt:0.9.1")
+    runtimeOnly("org.postgresql:postgresql:42.3.6")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:2.7.0")
+    testImplementation("org.springframework.security:spring-security-test:5.7.1")
 }
 
 tasks.withType<KotlinCompile> {

@@ -10,6 +10,5 @@ data class ActivationToken(
 
     @OneToOne
     @JoinColumn(name = "app_user_id")
-    val user: AppUser
-
+    val user: AppUser,
 )

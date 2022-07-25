@@ -5,7 +5,6 @@ import com.sorsix.backendapplication.api.dto.QuestionRequest
 import com.sorsix.backendapplication.domain.Question
 import com.sorsix.backendapplication.domain.QuestionCreated
 import com.sorsix.backendapplication.domain.QuestionFailed
-import com.sorsix.backendapplication.domain.Tag
 import com.sorsix.backendapplication.service.QuestionService
 import com.sorsix.backendapplication.service.TagService
 import org.springframework.http.ResponseEntity
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/questions")
 class QuestionController(
     val questionService: QuestionService,
-    val tagService: TagService
+    val tagService: TagService,
 ) {
 
     @GetMapping
@@ -88,10 +87,10 @@ class QuestionController(
         return questionService.findAllQuestionsWithMentionedWord(word);
 
     }
+
     @GetMapping("/tags/{id}")
-    fun getQuestionTags(@PathVariable id : Long): List<String>
-    {
-        return questionService.getQuestionTags(id).map { it.tag.name}
+    fun getQuestionTags(@PathVariable id: Long): List<String> {
+        return questionService.getQuestionTags(id).map { it.tag.name }
     }
     @GetMapping("/sorted")
     fun getSortedQuestions() : List<Question>

@@ -1,6 +1,6 @@
-INSERT INTO app_users(username, name, surname, email)
-VALUES ('jovan', 'jovan', 'dimov', 'jovandimov@gmail.com'),
-       ('test', 'test', 'test', 'test@sorsix.com');
+INSERT INTO app_users(username, name, surname, email,password)
+VALUES ('jovan', 'jovan', 'dimov', 'jovandimov@gmail.com','jovan'),
+       ('test', 'test', 'test', 'test@sorsix.com','test');
 
 INSERT INTO question(title, question_text, parent_question_id, app_user_id)
 VALUES ('first question', 'testtest', null, 1),

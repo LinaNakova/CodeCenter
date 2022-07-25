@@ -2,7 +2,10 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/stackoverflow
     username: postgres
-    password: password
+    password: admin
   jpa:
     show-sql: true
+
+jwtSecret: "gJ9B3DKt6YFXkuPueje3DnZM1uUAyLywt1g0UWyA"
+jwtExpirationMs: "86400000"
 
