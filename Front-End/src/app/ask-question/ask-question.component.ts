@@ -19,6 +19,7 @@ export class AskQuestionComponent implements OnInit {
   bold = false;
   italic = false;
   tags$! :Observable<TagInterface[]>
+  tags : string [] = []
   private searchTerms = new Subject<string>();
 
   constructor(public fb: FormBuilder, private service: CodeService, private router: Router) {
@@ -59,9 +60,10 @@ export class AskQuestionComponent implements OnInit {
   {
     this.italic = !this.italic;
   }
-  addToTagList(id : number)
+  addToTagList(id : number, name:string)
   {
     console.log(id)
+    this.tags.push(name)
     this.listOfTags.push(id)
   }
 

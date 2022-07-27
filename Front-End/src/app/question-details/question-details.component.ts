@@ -23,7 +23,7 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
 
   constructor(public fb: FormBuilder,
               private service: CodeService,
-              private _route: ActivatedRoute) {
+              private route: ActivatedRoute) {
     this.form = this.fb.group({
       title: [""],
       questionText: [""],
@@ -34,8 +34,8 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log(this._route.snapshot.paramMap);
-    this._route.paramMap.pipe(
+    console.log(this.route.snapshot.paramMap);
+    this.route.paramMap.pipe(
       takeUntil(this.destroySubject$),
       filter(paramMap => paramMap.has('id')),
       map(paramMap => +paramMap.get('id')!)

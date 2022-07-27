@@ -5,6 +5,7 @@ import {QuestionInterface} from "./questionInterface";
 import {TagInterface} from "./tagInterface";
 import {FormInterface} from "./form";
 import {TagFormInterface} from "./TagFormInterface";
+import {UserInterface} from "./userInterface";
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class CodeService {
   questionDetailsUrl = "/api/questions"
   questionAnswersUrl = "/api/questions/answers"
   questionTagsUrl = "api/questions/tags"
+  getUsersUrl = "/api/users"
+  getQuestionsWithTag = "/api/tag/allQuestions"
 
   constructor(private httpClient: HttpClient) {
   }
@@ -52,6 +55,18 @@ export class CodeService {
 
   getQuestionTags(id: number): Observable<String[]> {
     return this.httpClient.get<String[]>(`${this.questionTagsUrl}/${id}`)
+  }
+
+  getUsers(): Observable<UserInterface[]> {
+    return this.httpClient.get<UserInterface[]>(`http://localhost:4200${this.getUsersUrl}`)
+  }
+
+  getAllQuestionsWithTag(id: number): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.getQuestionsWithTag}/${id}`)
+  }
+
+  getById(id: number): Observable<TagInterface> {
+    return this.httpClient.get<TagInterface>(`${this.tagsUrl}/${id}`)
   }
 
 
@@ -97,11 +112,13 @@ export class CodeService {
   }
 
   postTag(name: string, description: string) {
-    const tag: TagFormInterface = {name: name, description: description}
+    let capitalized = name[0].toUpperCase() + name.slice(1)
+    const tag: TagFormInterface = {name: capitalized, description: description}
     this.httpClient.post("http://localhost:4200/api/tag", tag)
       .subscribe({
         next: (response) => console.log(response),
         error: (error) => console.log(error),
       })
   }
+
 }

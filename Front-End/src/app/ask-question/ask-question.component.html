@@ -24,11 +24,14 @@
         <div class="mb-3 form-group">
           <label for="search-box" class="form-label">Tags</label>
           <p>Add up to 5 tags to describe what your question is about</p>
+          <div class="tagContainer">
+          <p class="tag" *ngFor="let t of tags">{{t}}</p>
+          </div>
           <input type="text" class="form-control" #searchBox id="search-box" (input)="search(searchBox.value)">
           <ul class="search-result">
             <li *ngFor="let tag of tags$ | async" >
-              <a (click)="addToTagList(tag.id)">
-                {{tag.name}}
+              <a (click)="addToTagList(tag.id, tag.name)">
+                <app-tag [t] = tag></app-tag>
               </a>
             </li>
           </ul>
@@ -38,23 +41,31 @@
     </div>
     <div class="right">
       <h3>Steps</h3>
-      <div class="steps">
-        <p>1.Summarize the problem
-          Include details about your goal
-          Describe expected and actual results
-          Include any error messages</p>
+      <div class="card border-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">1.Summarize the problem</div>
+        <div class="card-body text-danger">
+          <p class="card-text">Include details about your goal
+              Describe expected and actual results
+                  Include any error messages</p>
+        </div>
       </div>
-      <div class="steps">
-        <p>2.Describe what you’ve tried
-          Show what you’ve tried and tell us what you found
-          (on this site or elsewhere) and why it didn’t meet
-          your needs. You can get better answers when you provide research.</p>
+
+      <div class="card border-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">2.Describe what you’ve tried</div>
+        <div class="card-body text-danger">
+          <p class="card-text"> Show what you’ve tried and tell us what you found
+            (on this site or elsewhere) and why it didn’t meet
+            your needs. You can get better answers when you provide research.</p>
+        </div>
       </div>
-      <div class="steps">
-        <p>3.Show some code
-          When appropriate, share the minimum amount of
-          code others need to reproduce your problem
-          (also called a minimum, reproducible example)</p>
+
+      <div class="card border-danger mb-3" style="max-width: 18rem;">
+        <div class="card-header">3.Show some code</div>
+        <div class="card-body text-danger">
+          <p class="card-text">When appropriate, share the minimum amount of
+            code others need to reproduce your problem
+            (also called a minimum, reproducible example)</p>
+        </div>
       </div>
     </div>
   </div>

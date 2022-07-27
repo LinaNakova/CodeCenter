@@ -10,12 +10,6 @@
   justify-content: space-between;
   padding-bottom: 25px;
 }
-.btn-outline-success
-{
-  background-color: #CA826D;
-  color: #383A21;
-  border-color: #af6c55;
-}
 h3
 {
   color: #383A21;
@@ -26,16 +20,6 @@ app-question
   right: 0;
   width: 100%;
 }
-.current{
-  padding: .1875rem .625rem;
-  background: #FA2742 !important;
-  color: #fefefe;
-  cursor: default;
-}
-.myPagination::ng-deep .page-item.active .page-link {
-  z-index: 1;
-  color: #FFFFFF;
-  background-color:#FA2742 !important;
-  border-color: #FA2742;
-}
+
+
 

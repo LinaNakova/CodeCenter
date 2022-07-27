@@ -1,0 +1,79 @@
+.proba{
+  height: 100%;
+  width: 100%;
+  background-color: #E8EAE3;
+  padding: 30px;
+}
+.heading
+{
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 25px;
+}
+.btn-outline-success
+{
+  background-color: #FA2742;
+  color: #FFFFFF;
+  border-color: #FA2742;
+}
+h3
+{
+  color: #383A21;
+}
+app-question
+{
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+.cont
+{
+  display: flex;
+  justify-content: space-between;
+}
+.right
+{
+  width: 30%;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+.left{
+  width: 60%;
+}
+#exampleFormControlTextarea1
+{
+  height: 40vh;
+}
+.steps
+{
+  padding-top: 10px;
+  text-align: justify;
+}
+h3, label
+{
+  color: #FA2742;
+}
+label
+{
+  font-size: x-large;
+}
+.bold{
+  font-weight: bold;
+}
+.regularBold
+{
+  font-weight: normal;
+}
+.italic
+{
+  font-style: italic;
+}
+.italicNormal
+{
+  font-style: normal;
+}
+.styleButton
+{
+  margin: 5px;
+}
