@@ -28,8 +28,13 @@ class SecurityConfig(
 //        "/api/**"
 //    )
     private val publicMatchers = arrayOf(
+<<<<<<< HEAD
      "/api/auth/**",
      "/**"
+=======
+        "/api/auth/**",
+        "/**"
+>>>>>>> 50598884c64e84f77a8e9c5f0bb80bf0403c3ace
     )
 
     private val adminMatchers = arrayOf(
