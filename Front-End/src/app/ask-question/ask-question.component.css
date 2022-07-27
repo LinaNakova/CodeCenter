@@ -73,3 +73,39 @@ h3
 {
   margin: 5px;
 }
+.search-result
+{
+  display: flex;
+  margin: 0;
+  padding: 0;
+  margin-top: 7px;
+}
+li{
+  list-style-type: none;
+  margin: 2px;
+}
+li:hover
+{
+  box-shadow: 4px 3px 8px 1px #969696;
+  -webkit-box-shadow: 4px 3px 8px 1px #969696;
+}
+.tag
+{
+  display: inline;
+  background-color: #FA2742;
+  color: #FFFFFF;
+  padding: 5px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  margin-right: 3px;
+  border-radius: 5px;
+}
+.tagContainer
+{
+  height: 40px;
+}
+card-header
+{
+  background-color: #FA2742;
+  color: #FFFFFF;
+}

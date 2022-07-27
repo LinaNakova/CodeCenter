@@ -1,0 +1,27 @@
+.proba{
+  height: 100%;
+  width: 100%;
+  background-color: #E8EAE3;
+  padding: 30px;
+}
+.btn-outline-success
+{
+  background-color: #CA826D;
+  color: #383A21;
+  border-color: #af6c55;
+}
+h3
+{
+  color: #383A21;
+}
+.users
+{
+  display: grid;
+  grid-template-columns: repeat(3, 0.5fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
+}
+app-user
+{
+  display: inline;
+}

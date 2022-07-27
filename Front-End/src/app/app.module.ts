@@ -19,6 +19,9 @@ import {QuestionDetailsComponent} from './question-details/question-details.comp
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AddTagComponent} from './add-tag/add-tag.component';
 import {NgxPaginationModule} from "ngx-pagination";
+import { UserComponent } from './user/user.component';
+import { UsersComponent } from './users/users.component';
+import { AllQuestionsWithTagComponent } from './all-questions-with-tag/all-questions-with-tag.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,10 @@ import {NgxPaginationModule} from "ngx-pagination";
     TopQuestionsComponent,
     SearchResultsComponent,
     QuestionDetailsComponent,
-    AddTagComponent
+    AddTagComponent,
+    UserComponent,
+    UsersComponent,
+    AllQuestionsWithTagComponent
   ],
   imports: [
     BrowserModule,

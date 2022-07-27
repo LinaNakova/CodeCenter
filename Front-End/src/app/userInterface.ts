@@ -5,5 +5,15 @@ export interface UserInterface
   "name": string,
   "surname": string,
   "email": string,
-  "appUserRole": string
+  "appUserRole": string,
+  "link_img" : string,
+  "enabled": boolean,
+  "authorities": [
+    {
+      "authority": string
+    }
+  ],
+  "credentialsNonExpired": boolean,
+  "accountNonExpired": boolean,
+  "accountNonLocked": boolean
 }

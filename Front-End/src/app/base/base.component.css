@@ -18,7 +18,7 @@
   border-right-width: 7px;
   display: flex;
   flex-direction: column;
-  background-color: #E8EAE3;
+  background: rgba(255, 255, 255, 0.7);
 }
 nav
 {
@@ -39,17 +39,15 @@ a{
 {
   flex-grow: 3;
 }
-#extra{
-  background: rgba(255,255,255, 0.3);
-  border-left-color: #CA826D;
-  border-left-style: solid;
-  border-left-width: 7px;
-  height: 100%;
-}
 iframe
 {
   width: 125px;
   height: 250px;
   margin: 0;
+}
+a:hover
+{
+  /*font-size: x-large;*/
+  font-weight: bold;
 }
 
