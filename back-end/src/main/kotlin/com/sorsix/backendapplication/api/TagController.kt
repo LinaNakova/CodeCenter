@@ -1,10 +1,8 @@
 package com.sorsix.backendapplication.api
 
 import com.sorsix.backendapplication.api.dto.TagRequest
-import com.sorsix.backendapplication.domain.QuestionFailed
-import com.sorsix.backendapplication.domain.Tag
-import com.sorsix.backendapplication.domain.TagCreated
-import com.sorsix.backendapplication.domain.TagFailed
+import com.sorsix.backendapplication.domain.*
+import com.sorsix.backendapplication.service.QuestionService
 import com.sorsix.backendapplication.service.TagService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -12,7 +10,8 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api/tag")
 class TagController(
-    val tagService: TagService
+    val tagService: TagService,
+    val questionService : QuestionService
 ) {
 
     @GetMapping
@@ -45,5 +44,14 @@ class TagController(
             ResponseEntity.badRequest().body(resultString);
         }
     }
-
+    @GetMapping("/allQuestions/{tag}")
+    fun getAllQuestionsWithTag(@PathVariable tag : Long) : List<Question>?
+    {
+        return this.tagService.getAllQuestionsWithTag(tag)
+    }
+    @GetMapping("/{id}")
+    fun getById(@PathVariable id : Long) : Tag?
+    {
+        return this.tagService.getTagById(id)
+    }
 }

@@ -6,7 +6,8 @@ CREATE TABLE app_users
     surname       text not null,
     email         text not null,
     password      text not null,
-    app_user_role text default 'USER'
+    app_user_role text default 'USER',
+    link_img          text default 'https://i.ibb.co/9HHWVWf/Pngtree-smiling-people-avatar-set-different-7690733-1.png'
 );
 
 CREATE TABLE activation_tokens

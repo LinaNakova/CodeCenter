@@ -16,12 +16,16 @@ class AppUserService(
 ) : UserDetailsService {
 
     fun saveUser(appUser: AppUser) {
-        appUserRepository.save(appUser);
+        appUserRepository.save(appUser)
 
+    }
+    fun findAll() : List<AppUser>?
+    {
+        return appUserRepository.findAll()
     }
 
     override fun loadUserByUsername(username: String): UserDetails? {
-        return appUserRepository.findByUsername(username);
+        return appUserRepository.findByUsername(username)
 
     }
 

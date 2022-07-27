@@ -23,9 +23,13 @@ class SecurityConfig(
     val unauthorizedHandler: AuthEntryPointJwt
 ) : WebSecurityConfigurerAdapter() {
 
+//    private val publicMatchers = arrayOf(
+//        "/api/auth/**",
+//        "/api/**"
+//    )
     private val publicMatchers = arrayOf(
-        "/api/auth/**",
-        "/api/**"
+     "/api/auth/**",
+     "/**"
     )
 
     private val adminMatchers = arrayOf(

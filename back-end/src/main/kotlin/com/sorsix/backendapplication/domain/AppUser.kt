@@ -21,6 +21,8 @@ data class AppUser(
     private val password: String,
     @Enumerated(value = EnumType.STRING)
     val appUserRole: AppUserRole,
+    @Column(name = "link_img")
+    val link_img : String
 ) : UserDetails {
     override fun getAuthorities() = mutableListOf(SimpleGrantedAuthority(appUserRole.name))
 

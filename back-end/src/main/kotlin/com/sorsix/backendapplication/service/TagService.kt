@@ -1,13 +1,15 @@
 package com.sorsix.backendapplication.service
 
 import com.sorsix.backendapplication.domain.*
+import com.sorsix.backendapplication.repository.QuestionTagRepository
 import com.sorsix.backendapplication.repository.TagRepository
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 
 @Service
 class TagService(
-    val tagRepository: TagRepository
+    val tagRepository: TagRepository,
+    val questionTagRepository: QuestionTagRepository
 ) {
 
     fun getAllTags(): List<Tag>? {
@@ -32,6 +34,17 @@ class TagService(
             tagRepository.save(tag);
             TagCreated(tag = tag);
         }
+    }
+    fun getAllQuestionsWithTag(tag : Long) : List<Question>?
+    {
+        return this.questionTagRepository.findAll()
+            .filter { questionTag -> questionTag.tag == tagRepository.findByIdOrNull(tag) }
+            .map { questionTag -> questionTag.question }
+            .filter { question -> question.parentQuestion == null }
+    }
+    fun getTagById(id : Long) : Tag?
+    {
+        return this.tagRepository.findByIdOrNull(id)
     }
 
 

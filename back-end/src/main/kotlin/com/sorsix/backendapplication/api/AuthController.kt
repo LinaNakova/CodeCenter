@@ -27,6 +27,17 @@ class AuthController(
     val jwtUtils: JwtUtils,
     val passwordEncoder: PasswordEncoder
 ) {
+    val links = arrayOf("https://i.ibb.co/9HHWVWf/Pngtree-smiling-people-avatar-set-different-7690733-1.png",
+    "https://i.ibb.co/PxnMFQH/Pngtree-smiling-people-avatar-set-different-7690729-1.png",
+    "https://i.ibb.co/2WkfTb7/Pngtree-smiling-people-avatar-set-different-7691712-1.png",
+    "https://i.ibb.co/YkyqgtF/Pngtree-smiling-people-avatar-set-different-7690948-1.png",
+    "https://i.ibb.co/q5LT0XK/Pngtree-smiling-people-avatar-set-different-7691623-1.png",
+    "https://i.ibb.co/0DLpV4S/Pngtree-smiling-people-avatar-set-different-7691526-1.png")
+    fun generateRandomAvatar() : String
+    {
+        val random = (0..5).random();
+        return links.get(random)
+    }
     @PostMapping("/register")
     fun register(@RequestBody registerRequest: RegisterRequest): ResponseEntity<Any> {
         // TODO Checks if user is valid :)
@@ -37,7 +48,8 @@ class AuthController(
             email = registerRequest.email,
             password = passwordEncoder.encode(registerRequest.password),
             username = registerRequest.username,
-            appUserRole = AppUserRole.USER
+            appUserRole = AppUserRole.USER,
+            link_img = generateRandomAvatar()
             //TODO THE appUserRole
         )
         appUserService.saveUser(appUser)
