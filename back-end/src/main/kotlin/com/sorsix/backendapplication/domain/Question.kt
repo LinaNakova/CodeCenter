@@ -26,4 +26,7 @@ data class Question(
     @JoinColumn(name = "app_user_id")
     @JsonManagedReference
     val user: AppUser?,
+
+    @Column(name = "views")
+    val views: Int
 )

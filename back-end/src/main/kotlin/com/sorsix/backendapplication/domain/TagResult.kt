@@ -1,17 +1,15 @@
 package com.sorsix.backendapplication.domain
 
 
-sealed interface QuestionResult{
+sealed interface TagResult{
     fun success(): Boolean
 }
-
-data class QuestionCreated(val question: Question):QuestionResult{
+data class TagCreated(val tag: Tag):TagResult{
     override fun success(): Boolean {
         return true
     }
 }
-
-data class QuestionFailed(val errorMessage: String):QuestionResult{
+data class TagFailed(val errorMessage: String):TagResult{
     override fun success(): Boolean {
         return false
     }

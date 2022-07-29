@@ -1,19 +1,15 @@
 package com.sorsix.backendapplication.domain
 
-
-sealed interface QuestionResult{
+sealed interface LikeResult{
     fun success(): Boolean
 }
-
-data class QuestionCreated(val question: Question):QuestionResult{
+data class LikeCreated(val like: LikeUnlike):LikeResult{
     override fun success(): Boolean {
         return true
     }
 }
-
-data class QuestionFailed(val errorMessage: String):QuestionResult{
+data class LikeFailed(val errorMessage: String):LikeResult{
     override fun success(): Boolean {
         return false
     }
-
 }

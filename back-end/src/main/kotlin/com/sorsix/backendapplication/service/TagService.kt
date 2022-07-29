@@ -24,8 +24,7 @@ class TagService(
     fun createTag(name: String, description: String): TagResult {
         return if (name == "" || description == "") {
             TagFailed("error :)")
-        }
-        else {
+        } else {
             val tag = Tag(
                 name = name,
                 description = description
@@ -35,16 +34,23 @@ class TagService(
             TagCreated(tag = tag);
         }
     }
-    fun getAllQuestionsWithTag(tag : Long) : List<Question>?
-    {
+
+    fun getAllQuestionsWithTag(tag: Long): List<Question>? {
         return this.questionTagRepository.findAll()
             .filter { questionTag -> questionTag.tag == tagRepository.findByIdOrNull(tag) }
             .map { questionTag -> questionTag.question }
             .filter { question -> question.parentQuestion == null }
     }
-    fun getTagById(id : Long) : Tag?
-    {
+
+    fun getTagById(id: Long): Tag? {
         return this.tagRepository.findByIdOrNull(id)
+    }
+
+    fun getTagsFromUser(id: Long): Set<Tag>? {
+        return this.questionTagRepository.findAll()
+            .filter { questionTag -> questionTag.question.user?.id == id }
+            .map { questionTag -> questionTag.tag }
+            .toSet()
     }
 
 
