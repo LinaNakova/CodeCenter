@@ -22,6 +22,11 @@ import {NgxPaginationModule} from "ngx-pagination";
 import { UserComponent } from './user/user.component';
 import { UsersComponent } from './users/users.component';
 import { AllQuestionsWithTagComponent } from './all-questions-with-tag/all-questions-with-tag.component';
+import { AnswerComponent } from './answer/answer.component';
+import { TagForSearchComponent } from './tag-for-search/tag-for-search.component';
+import { ProfileComponent } from './profile/profile.component';
+import { SmallQuestionCardComponent } from './small-question-card/small-question-card.component';
+import { SmallAnswerCardComponent } from './small-answer-card/small-answer-card.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +45,12 @@ import { AllQuestionsWithTagComponent } from './all-questions-with-tag/all-quest
     AddTagComponent,
     UserComponent,
     UsersComponent,
-    AllQuestionsWithTagComponent
+    AllQuestionsWithTagComponent,
+    AnswerComponent,
+    TagForSearchComponent,
+    ProfileComponent,
+    SmallQuestionCardComponent,
+    SmallAnswerCardComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ export class AskQuestionComponent implements OnInit {
   bold = false;
   italic = false;
   tags$! :Observable<TagInterface[]>
-  tags : string [] = []
+  tags : TagInterface [] = []
   private searchTerms = new Subject<string>();
 
   constructor(public fb: FormBuilder, private service: CodeService, private router: Router) {
@@ -37,9 +37,9 @@ export class AskQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.tags$ = this.searchTerms.pipe(
-      debounceTime(500),
+      debounceTime(400),
       distinctUntilChanged(),
-      switchMap((term: string) => this.service.searchTags(term)),
+      switchMap((term: string) => this.service.searchTags(term.toLowerCase())),
     );
   }
 
@@ -60,11 +60,19 @@ export class AskQuestionComponent implements OnInit {
   {
     this.italic = !this.italic;
   }
-  addToTagList(id : number, name:string)
+  addToTagList(tag : TagInterface)
   {
-    console.log(id)
-    this.tags.push(name)
-    this.listOfTags.push(id)
+    this.tags.push(tag)
+    this.listOfTags.push(tag?.id)
+    console.log(this.tags)
+    console.log(this.listOfTags)
+  }
+  deleteTag(t : TagInterface) {
+    const index = this.tags.findIndex(tag => {
+      return tag.name === t.name
+    })
+    this.tags.splice(index,1)
+    this.listOfTags.splice(index,1)
   }
 
 }

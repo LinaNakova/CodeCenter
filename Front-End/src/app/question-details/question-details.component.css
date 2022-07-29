@@ -33,9 +33,19 @@ app-question
 }
 .tag
 {
+  display: inline;
   background-color: #FA2742;
   color: #FFFFFF;
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   margin: 5px;
-  border-radius: 5px;
+  border-radius: 2px;
+  margin-left : 0;
+}
+small
+{
+  margin: 0;
+}
+app-heading
+{
+  margin-bottom: 0;
 }

@@ -25,13 +25,13 @@
           <label for="search-box" class="form-label">Tags</label>
           <p>Add up to 5 tags to describe what your question is about</p>
           <div class="tagContainer">
-          <p class="tag" *ngFor="let t of tags">{{t}}</p>
+          <p class="tag" *ngFor="let t of tags">{{t?.name}} <a (click)="deleteTag(t)">x</a></p>
           </div>
           <input type="text" class="form-control" #searchBox id="search-box" (input)="search(searchBox.value)">
           <ul class="search-result">
             <li *ngFor="let tag of tags$ | async" >
-              <a (click)="addToTagList(tag.id, tag.name)">
-                <app-tag [t] = tag></app-tag>
+              <a (click)="addToTagList(tag)">
+                <app-tag-for-search [t] = tag></app-tag-for-search>
               </a>
             </li>
           </ul>

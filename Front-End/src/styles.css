@@ -1,16 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
+html, body {
+  height: 100%;
+}
+
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   background-color: #eeeeee !important;
 }
-app-root
-{
+
+app-root {
   background-color: #eeeeee !important;
 }
-.proba
-{
-  background: rgba(255,255,255,0.7) !important;
+
+.proba {
+  background: rgba(255, 255, 255, 0.7) !important;
+  margin-left: 149px;
+  padding: 30px;
+
+}
+
+pre {
+  width: 60em;
+  white-space: pre-wrap; /* Since CSS 2.1 */
+  white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+  white-space: -pre-wrap; /* Opera 4-6 */
+  white-space: -o-pre-wrap; /* Opera 7 */
+  word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+nav.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 1000;
 }

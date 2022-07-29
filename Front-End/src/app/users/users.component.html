@@ -1,6 +1,6 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
   <div class="users">
-  <app-user *ngFor="let user of users" [user] = "user"></app-user>
+  <app-user *ngFor="let user of users" [user] = "user" routerLink="/profile/{{user?.id}}"></app-user>
   </div>
 </div>

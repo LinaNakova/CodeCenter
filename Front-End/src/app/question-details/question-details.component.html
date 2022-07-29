@@ -1,12 +1,13 @@
 <div class="proba">
   <app-heading [title]="question?.title"></app-heading>
+  <small>{{views}} views</small>
   <hr>
-  <p>{{question?.questionText}}</p>
+  <pre><code>{{question?.questionText}}</code></pre>
   <div class="tags">
     <p *ngFor="let t of tags" class="tag">{{t}}</p>
   </div>
   <h5>{{answers.length}} Answers</h5>
-  <app-question *ngFor="let a of answers" [question]="a" ></app-question>
+  <app-answer *ngFor="let a of answers" [question]="a" ></app-answer>
 
   <form [formGroup]="form" (ngSubmit)="submitForm()">
     <div class="mb-3 form-group">

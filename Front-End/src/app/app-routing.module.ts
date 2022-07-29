@@ -9,6 +9,7 @@ import {QuestionDetailsComponent} from "./question-details/question-details.comp
 import {AddTagComponent} from "./add-tag/add-tag.component";
 import {UsersComponent} from "./users/users.component";
 import {AllQuestionsWithTagComponent} from "./all-questions-with-tag/all-questions-with-tag.component";
+import {ProfileComponent} from "./profile/profile.component";
 
 const routes: Routes = [
   {path:"top-questions", component:TopQuestionsComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path:"addTag", component: AddTagComponent},
   {path:"users", component: UsersComponent},
   {path:"allQuestionsWithTag/:id", component: AllQuestionsWithTagComponent},
+  {path:"profile/:id", component: ProfileComponent},
   {path:"", redirectTo: '/top-questions', pathMatch:"full"},
   {path:"**", redirectTo: '/top-questions', pathMatch:"full"}
 ];

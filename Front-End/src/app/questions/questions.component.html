@@ -1,6 +1,5 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
-
   <div class="questions">
     <app-question *ngFor="let question of allQuestions
                   | paginate: {
@@ -8,7 +7,7 @@
                   currentPage: page,
                   totalItems: count};
                   let i = index"
-                  [question] = question
+                  [question]=question
                   routerLink="/questions/{{question.id}}"></app-question>
     <pagination-controls
       previousLabel="Prev"

@@ -20,6 +20,7 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   id: number | undefined;
   destroySubject$ = new Subject<void>();
   tags : String [] = []
+  views: number | undefined
 
   constructor(public fb: FormBuilder,
               private service: CodeService,
@@ -34,6 +35,14 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getId()
+    this.getQuestionDetails()
+    this.getQuestionAnswers()
+    this.getQuestionTags()
+    this.increaseViews()
+  }
+  getId()
+  {
     console.log(this.route.snapshot.paramMap);
     this.route.paramMap.pipe(
       takeUntil(this.destroySubject$),
@@ -44,19 +53,28 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
         this.id = id;
       }
     });
+  }
+  getQuestionDetails()
+  {
     this.service.getQuestionDetails(this.id!).pipe(
       takeUntil(this.destroySubject$)).subscribe({
       next: (q) => {
         this.question = q
       }
     })
+  }
+  getQuestionAnswers()
+  {
     this.service.getQuestionAnswers(this.id!)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
-      next: (answers) => {
-        this.answers = answers;
-      }
-    })
+        next: (answers) => {
+          this.answers = answers;
+        }
+      })
+  }
+  getQuestionTags()
+  {
     this.service.getQuestionTags(this.id!)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
@@ -79,10 +97,29 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
     this.input1=""
     this.input2=""
   }
-
+  increaseViews()
+  {
+    console.log("inside increase views")
+    this.service.increaseViews(this.id!!)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe(() => {
+        this.getViews()
+      })
+  }
+  getViews()
+  {
+    this.service.getViews(this.id!!)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({
+        next: (num)=>{
+          this.views = num
+        }
+      })
+  }
   ngOnDestroy() {
     this.destroySubject$.next();
     this.destroySubject$.complete();
   }
+
 
 }

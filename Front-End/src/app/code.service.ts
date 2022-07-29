@@ -6,6 +6,7 @@ import {TagInterface} from "./tagInterface";
 import {FormInterface} from "./form";
 import {TagFormInterface} from "./TagFormInterface";
 import {UserInterface} from "./userInterface";
+import {LikeInterface} from "./likeInterface";
 
 @Injectable({
   providedIn: 'root'
@@ -112,13 +113,48 @@ export class CodeService {
   }
 
   postTag(name: string, description: string) {
-    let capitalized = name[0].toUpperCase() + name.slice(1)
-    const tag: TagFormInterface = {name: capitalized, description: description}
+    name = name.toLowerCase()
+    // let capitalized = name[0].toUpperCase() + name.slice(1)
+    const tag: TagFormInterface = {name: name, description: description}
     this.httpClient.post("http://localhost:4200/api/tag", tag)
       .subscribe({
         next: (response) => console.log(response),
         error: (error) => console.log(error),
       })
+  }
+
+  postLike(like : LikeInterface)
+  {
+    return this.httpClient.post("http://localhost:4200/api/questions/likes",like)
+  }
+  getLikes(id : number) : Observable<number>
+  {
+    return this.httpClient.get<number>(`${this.questionsUrl}/likes/${id}`)
+  }
+  increaseViews(id : number)
+  {
+    console.log("calling post method")
+    return this.httpClient.post(`http://localhost:4200/api/questions/increase/${id}`,"")
+  }
+  getViews(id : number) : Observable<number>
+  {
+    return this.httpClient.get<number>(`${this.questionsUrl}/views/${id}`)
+  }
+  getUserById(id : number) : Observable<UserInterface>
+  {
+    return this.httpClient.get<UserInterface>(`${this.getUsersUrl}/${id}`)
+  }
+  getQuestionsFromUser(id : number) : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}/fromUser/${id}`)
+  }
+  getAnswersFromUser(id : number) : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}/answersFromUser/${id}`)
+  }
+  getTagsFromUser(id : number)
+  {
+    return this.httpClient.get<TagInterface[]>(`${this.tagsUrl}/tagsFromUser/${id}`)
   }
 
 }
