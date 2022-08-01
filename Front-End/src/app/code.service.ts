@@ -13,7 +13,8 @@ import {LikeInterface} from "./likeInterface";
 })
 export class CodeService {
   questionsUrl = "/api/questions";
-  topQuestionsUrl = "/api/questions/sorted"
+  sortedByTitleAscending = "/api/questions/sortedByTitle"
+  sortedByTitleDescending = "/api/questions/sortedByTitleDescending"
   questionsWithoutAnswersUrl = "/api/questions/withoutAnswers";
   tagsUrl = "/api/tag"
   customWordUrl = "/api/questions/tagged"
@@ -22,6 +23,14 @@ export class CodeService {
   questionTagsUrl = "api/questions/tags"
   getUsersUrl = "/api/users"
   getQuestionsWithTag = "/api/tag/allQuestions"
+  sortedByViewsAscending = "/api/questions/sortedByViewsAscending"
+  sortedByViewsDescending = "/api/questions/sortedByViewsDescending"
+  sortedByLikesAscending = "/api/questions/sortedByLikesAscending"
+  sortedByLikesDescending = "/api/questions/sortedByLikesDescending"
+  sortedByAnswersDescending = "/api/questions/sortedByAnswersDescending"
+  sortedByAnswersAscending = "/api/questions/sortedByAnswersAscending"
+  sortedByDateAscending = "/api/questions/sortedByTimestamp"
+  sortedByDateDescending = "/api/questions/sortedByTimestampDescending"
 
   constructor(private httpClient: HttpClient) {
   }
@@ -30,8 +39,11 @@ export class CodeService {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}`)
   }
 
-  getTopQuestions(): Observable<QuestionInterface[]> {
-    return this.httpClient.get<QuestionInterface[]>(`${this.topQuestionsUrl}`)
+  getSortedByTitleAscending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByTitleAscending}`)
+  }
+  getSortedByTitleDescending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByTitleDescending}`)
   }
 
   getQuestionsWithoutAnswers(): Observable<QuestionInterface[]> {
@@ -54,8 +66,8 @@ export class CodeService {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionAnswersUrl}/${id}`)
   }
 
-  getQuestionTags(id: number): Observable<String[]> {
-    return this.httpClient.get<String[]>(`${this.questionTagsUrl}/${id}`)
+  getQuestionTags(id: number): Observable<TagInterface[]> {
+    return this.httpClient.get<TagInterface[]>(`${this.questionTagsUrl}/${id}`)
   }
 
   getUsers(): Observable<UserInterface[]> {
@@ -133,7 +145,6 @@ export class CodeService {
   }
   increaseViews(id : number)
   {
-    console.log("calling post method")
     return this.httpClient.post(`http://localhost:4200/api/questions/increase/${id}`,"")
   }
   getViews(id : number) : Observable<number>
@@ -155,6 +166,38 @@ export class CodeService {
   getTagsFromUser(id : number)
   {
     return this.httpClient.get<TagInterface[]>(`${this.tagsUrl}/tagsFromUser/${id}`)
+  }
+  getSortedByViewsAscending() : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByViewsAscending}`)
+  }
+  getSortedByViewsDescending() : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByViewsDescending}`)
+  }
+  getSortedByLikesAscending(id : number) : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByLikesAscending}/${id}`)
+  }
+  getSortedByLikesDescending(id : number) : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByLikesDescending}/${id}`)
+  }
+  getSortedByAnswersDescending(): Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByAnswersDescending}`)
+  }
+  getSortedByAnswersAscending(): Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByAnswersAscending}`)
+  }
+  getSortedByDate() : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateAscending}`)
+  }
+  getSortedByDateDescending() : Observable<QuestionInterface[]>
+  {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateDescending}`)
   }
 
 }

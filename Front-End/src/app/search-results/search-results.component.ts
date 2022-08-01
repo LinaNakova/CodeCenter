@@ -14,17 +14,19 @@ export class SearchResultsComponent implements OnInit {
   allQuestions: QuestionInterface [] = []
   destroySubject$ = new Subject<void>();
   searchItem: string | undefined
-
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [10, 15, 20, 25];
+  loaded = false
   constructor(private service: CodeService, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    console.log("called ngOnInit")
     this.getTag()
   }
 
   getTag() {
-    console.log(this.route.snapshot.paramMap)
     this.route.paramMap
       .pipe(takeUntil(this.destroySubject$),
         filter(paramMap => paramMap.has('tag')),
@@ -40,15 +42,28 @@ export class SearchResultsComponent implements OnInit {
   getQuestions()
   {
     this.service.getQuestionsWithMentionedWord(this.searchItem!!)
-      .subscribe(ans => {
-        this.allQuestions = ans;
-        console.log(this.allQuestions)
+      .subscribe({
+        next:(ans) => {
+          this.allQuestions = ans;
+          this.loaded = true
+        }
       })
   }
 
   ngOnDestroy(): void {
     this.destroySubject$.next()
     this.destroySubject$.complete()
+  }
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.getQuestions();
+  }
+
+  onTableSizeChange(event: any): void {
+    console.log(event.target.value)
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.getQuestions();
   }
 
 }

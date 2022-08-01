@@ -1,5 +1,7 @@
 <div class="heading">
   <h3>{{title}}</h3>
+  <div>
   <a routerLink="/askQuestion" class="btn btn-outline-success" type="button">Ask a Question</a>
   <a *ngIf="title=='Tags'" routerLink="/addTag" class="btn btn-outline-success" type="button">Add a Tag</a>
+  </div>
 </div>

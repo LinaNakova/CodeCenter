@@ -2,7 +2,7 @@
 {
   display: flex;
   justify-content: space-between;
-  padding-bottom: 25px;
+  padding-bottom: 0 !important;
 }
 .btn-outline-success
 {
@@ -13,4 +13,8 @@
 h3
 {
   color: #FA2742;
+}
+a:first-child
+{
+  margin-right: 7px;
 }

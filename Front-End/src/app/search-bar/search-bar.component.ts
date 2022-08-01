@@ -12,13 +12,14 @@ export class SearchBarComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  submitSearch()
-  {
-    console.log(this.searchTag)
-    const route = '/questions/tagged/' + this.searchTag
-    this.searchTag = '[' + this.searchTag + ']'
-    if (!this.router.navigate([route])) {
-      window.location.reload()
+  submitSearch() {
+    if (this.searchTag != null && this.searchTag != "") {
+      console.log(this.searchTag)
+      const route = '/questions/tagged/' + this.searchTag
+      this.searchTag = '[' + this.searchTag + ']'
+      if (!this.router.navigate([route])) {
+        window.location.reload()
+      }
     }
   }
 

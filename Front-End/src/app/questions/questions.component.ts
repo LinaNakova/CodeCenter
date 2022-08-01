@@ -15,6 +15,7 @@ export class QuestionsComponent implements OnInit {
   count: number = 0;
   tableSize: number = 10;
   tableSizes: any = [10, 15, 20, 25];
+  loaded = false
 
   constructor(private codeService: CodeService) {
   }
@@ -27,6 +28,8 @@ export class QuestionsComponent implements OnInit {
     this.codeService.getQuestionsWithoutAnswers().subscribe(q => {
       this.allQuestions = q;
       this.questionsNum = q.length
+      this.loaded = true;
+      console.log(this.allQuestions)
     })
   }
 

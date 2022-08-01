@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {QuestionInterface} from "../questionInterface";
 import {Subject, takeUntil} from "rxjs";
 import {CodeService} from "../code.service";
+import {TagInterface} from "../tagInterface";
 
 @Component({
   selector: 'app-small-question-card',
@@ -11,7 +12,7 @@ import {CodeService} from "../code.service";
 export class SmallQuestionCardComponent implements OnInit {
   @Input()
   question : QuestionInterface | undefined
-  tags : String [] = []
+  tags : TagInterface [] = []
   answers : number | undefined
   destroySubject$ = new Subject<void>()
   constructor(private service : CodeService) { }

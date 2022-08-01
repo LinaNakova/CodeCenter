@@ -54,21 +54,6 @@ h3
 {
   color: #FA2742;
 }
-.bold{
-  font-weight: bold;
-}
-.regularBold
-{
-  font-weight: normal;
-}
-.italic
-{
-  font-style: italic;
-}
-.italicNormal
-{
-  font-style: normal;
-}
 .styleButton
 {
   margin: 5px;
@@ -104,8 +89,23 @@ li:hover
 {
   height: 40px;
 }
-card-header
+.card-header
 {
   background-color: #FA2742;
   color: #FFFFFF;
+}
+.hide
+{
+  display: none;
+}
+.show
+{
+  display: block;
+  color: #FA2742;
+}
+label
+{
+  color: #FA2742;
+  font-weight: 600;
+  font-size: large;
 }

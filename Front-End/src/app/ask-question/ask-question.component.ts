@@ -18,8 +18,10 @@ export class AskQuestionComponent implements OnInit {
   form: FormGroup;
   bold = false;
   italic = false;
-  tags$! :Observable<TagInterface[]>
-  tags : TagInterface [] = []
+  tags$!: Observable<TagInterface[]>
+  tags: TagInterface [] = []
+  badAnswer = false
+  fiveTags = false
   private searchTerms = new Subject<string>();
 
   constructor(public fb: FormBuilder, private service: CodeService, private router: Router) {
@@ -31,6 +33,7 @@ export class AskQuestionComponent implements OnInit {
       tagsId: [null],
     })
   }
+
   search(term: string): void {
     this.searchTerms.next(term);
   }
@@ -44,35 +47,44 @@ export class AskQuestionComponent implements OnInit {
   }
 
   submitForm() {
-    this.service.postForm(
-      this.form.get('title')?.value,
-      this.form.get('questionText')?.value,
-      this.parentQuestionId,
-      this.userId,
-      this.listOfTags);
-    this.router.navigate(['/questions']);
+    if (this.form.get('title')?.value == ""
+      || this.form.get('questionText')?.value == ""
+      || this.form.get('title')?.value == null
+      || this.form.get('questionText')?.value == null) {
+      this.badAnswer = true
+    } else {
+      this.service.postForm(
+        this.form.get('title')?.value,
+        this.form.get('questionText')?.value,
+        this.parentQuestionId,
+        this.userId,
+        this.listOfTags);
+      this.router.navigate(['/questions']);
+    }
   }
 
-  makeBold() {
-    this.bold = !this.bold;
+
+  addToTagList(t: TagInterface) {
+    if (this.listOfTags.length >= 5)
+    {
+      this.fiveTags = true
+    }
+    else if (this.tags.findIndex(tag => { return tag.name === t.name}) == -1) {
+      this.tags.push(t)
+      this.listOfTags.push(t?.id)
+    }
   }
-  makeItalic()
-  {
-    this.italic = !this.italic;
-  }
-  addToTagList(tag : TagInterface)
-  {
-    this.tags.push(tag)
-    this.listOfTags.push(tag?.id)
-    console.log(this.tags)
-    console.log(this.listOfTags)
-  }
-  deleteTag(t : TagInterface) {
+
+  deleteTag(t: TagInterface) {
     const index = this.tags.findIndex(tag => {
       return tag.name === t.name
     })
-    this.tags.splice(index,1)
-    this.listOfTags.splice(index,1)
+    this.tags.splice(index, 1)
+    this.listOfTags.splice(index, 1)
+    if (this.listOfTags.length < 5)
+    {
+      this.fiveTags = false
+    }
   }
 
 }

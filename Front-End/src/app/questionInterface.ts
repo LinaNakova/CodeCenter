@@ -8,4 +8,5 @@ export interface QuestionInterface
   "parentQuestion": QuestionInterface | undefined | null,
   "user": UserInterface
   "views" : number
+  "date" : string
 }

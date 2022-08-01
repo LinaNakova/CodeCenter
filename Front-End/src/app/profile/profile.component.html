@@ -1,4 +1,4 @@
-<div class="proba">
+<div class="proba" *ngIf="user?.id">
   <div class="user-info">
     <img src="{{user?.link_img}}" alt="profile image">
     <h4 id="username">{{user?.username}}</h4>
@@ -26,4 +26,10 @@
       </div>
     </div>
   </div>
+</div>
+<div class="proba" *ngIf="user?.id == null">
+  <h3>
+    Oops... Something went wrong
+  </h3>
+  <img src="https://i.ibb.co/4KVqHQz/Pngtree-cartoon-hand-drawn-business-404-5391377-1.png" alt="error image">
 </div>

@@ -1,6 +1,20 @@
-<div class="proba">
+<div class="proba" *ngIf="loaded; else loadingTemplate">
   <app-heading [title]="title"></app-heading>
   <div class="questions">
-    <app-question *ngFor="let question of allQuestions" [question] = question></app-question>
+    <app-question *ngFor="let question of allQuestions | paginate: {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: count};
+                  let i = index"
+                  [question] = question
+                  routerLink="/questions/{{question.id}}"></app-question>
+    <pagination-controls
+      previousLabel="Prev"
+      nextLabel="Next"
+      (pageChange)="onTableDataChange($event)">
+    </pagination-controls>
   </div>
 </div>
+<ng-template #loadingTemplate>
+  <object data="../../assets/spinner.svg"> </object>
+</ng-template>

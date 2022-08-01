@@ -1,4 +1,11 @@
-<div class="proba">
+<div class="proba" *ngIf="loaded; else loadingTemplate">
+  <div *ngIf="tag?.id == null">
+    <h3>
+      Oops... Something went wrong
+    </h3>
+    <img src="https://i.ibb.co/4KVqHQz/Pngtree-cartoon-hand-drawn-business-404-5391377-1.png" alt="error image">
+  </div>
+  <div *ngIf="tag?.id != null">
   <app-heading [title]="tag!.name"></app-heading>
 
   <div class="questions">
@@ -16,5 +23,8 @@
       (pageChange)="onTableDataChange($event)">
     </pagination-controls>
   </div>
-
+  </div>
 </div>
+<ng-template #loadingTemplate>
+  <object data="../../assets/spinner.svg" width="300" height="300"> </object>
+</ng-template>

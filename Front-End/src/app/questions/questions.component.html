@@ -1,6 +1,7 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
-  <div class="questions">
+  <div class="questions" *ngIf="loaded; else loadingTemplate">
+    <hr>
     <app-question *ngFor="let question of allQuestions
                   | paginate: {
                   itemsPerPage: tableSize,
@@ -15,5 +16,7 @@
       (pageChange)="onTableDataChange($event)">
     </pagination-controls>
   </div>
-
+  <ng-template #loadingTemplate>
+    <object data="../../assets/spinner.svg"> </object>
+  </ng-template>
 </div>

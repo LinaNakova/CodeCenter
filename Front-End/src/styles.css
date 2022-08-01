@@ -16,7 +16,7 @@ app-root {
 
 .proba {
   background: rgba(255, 255, 255, 0.7) !important;
-  margin-left: 149px;
+  margin-left: 143px;
   padding: 30px;
 
 }
@@ -34,4 +34,21 @@ nav.navbar {
   position: fixed;
   width: 100%;
   z-index: 1000;
+}
+svg
+{
+  margin-right: 20px;
+}
+svg:hover
+{
+  cursor: pointer;
+}
+.type-sorting
+{
+  margin-right: 5px;
+  color: #FA2742;
+}
+.sorting-row
+{
+  margin-bottom: 10px;
 }

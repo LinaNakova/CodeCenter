@@ -1,5 +1,6 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
+  <hr>
   <div class="cont">
     <div class="left">
       <form [formGroup]="form" (ngSubmit)="submitForm()">
@@ -12,18 +13,13 @@
         <div class="mb-3 form-group">
           <label for="exampleFormControlTextarea1" class="form-label">Body</label>
           <p>Include all the information someone would need to answer your question</p>
-          <button class="btn btn-outline-success styleButton" type="button" (click)="makeBold()">B</button>
-          <button class="btn btn-outline-success" type="button" (click)="makeItalic()">I</button>
           <textarea formControlName="questionText" class="form-control" id="exampleFormControlTextarea1" rows="3"
-                    placeholder="Enter problem description here..."
-                    [ngClass]="bold && italic ? 'bold italic'
-                    : bold && !italic ? 'bold italicNormal' :
-                     italic && !bold ? 'regularBold italic' :
-                      'regularBold italicNormal'"></textarea>
+                    placeholder="Enter problem description here..."></textarea>
         </div>
         <div class="mb-3 form-group">
           <label for="search-box" class="form-label">Tags</label>
           <p>Add up to 5 tags to describe what your question is about</p>
+          <p [ngClass]="fiveTags === false ? 'hide' : 'show'" >Five tags have already been added</p>
           <div class="tagContainer">
           <p class="tag" *ngFor="let t of tags">{{t?.name}} <a (click)="deleteTag(t)">x</a></p>
           </div>
@@ -36,6 +32,7 @@
             </li>
           </ul>
         </div>
+        <p [ngClass]="badAnswer === false ? 'hide' : 'show'" >Your answer couldn't be submitted. Please enter a title, and an answer</p>
         <button type="submit" value="Submit" class="btn btn-outline-success">Submit</button>
       </form>
     </div>

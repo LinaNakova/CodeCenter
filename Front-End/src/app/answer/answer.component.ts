@@ -3,6 +3,7 @@ import {QuestionInterface} from "../questionInterface";
 import {Subject, takeUntil} from "rxjs";
 import {CodeService} from "../code.service";
 import {LikeInterface} from "../likeInterface";
+import {TagInterface} from "../tagInterface";
 
 @Component({
   selector: 'app-answer',
@@ -12,7 +13,6 @@ import {LikeInterface} from "../likeInterface";
 export class AnswerComponent implements OnInit {
   @Input()
   question : QuestionInterface | undefined
-  tags : String [] = []
   destroySubject$ = new Subject<void>()
   likes : number | undefined
   disableUp : boolean = false
@@ -20,25 +20,12 @@ export class AnswerComponent implements OnInit {
   constructor(private service : CodeService) { }
 
   ngOnInit(): void {
-    this.getTags()
     this.getLikes();
   }
   ngOnDestroy() : void
   {
     this.destroySubject$.next();
     this.destroySubject$.complete();
-  }
-  getTags()
-  {
-    console.log(this.question?.id)
-    this.service.getQuestionTags(this.question!!.id)
-      .pipe(takeUntil(this.destroySubject$))
-      .subscribe({
-        next: (tags ) => {
-          console.log(tags)
-          this.tags = tags
-        }
-      })
   }
   getLikes()
   {

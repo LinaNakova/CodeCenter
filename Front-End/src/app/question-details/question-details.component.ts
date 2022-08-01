@@ -4,6 +4,7 @@ import {QuestionInterface} from "../questionInterface";
 import { filter, map, Observable, Subject, take, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
+import {TagInterface} from "../tagInterface";
 
 @Component({
   selector: 'app-question-details',
@@ -19,8 +20,10 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   answers: QuestionInterface[] = [];
   id: number | undefined;
   destroySubject$ = new Subject<void>();
-  tags : String [] = []
+  tags : TagInterface [] = []
   views: number | undefined
+  badAnswer = false
+  loaded : boolean = false;
 
   constructor(public fb: FormBuilder,
               private service: CodeService,
@@ -43,7 +46,6 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
   }
   getId()
   {
-    console.log(this.route.snapshot.paramMap);
     this.route.paramMap.pipe(
       takeUntil(this.destroySubject$),
       filter(paramMap => paramMap.has('id')),
@@ -51,6 +53,9 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: (id: number) => {
         this.id = id;
+      },
+      error:(any) => {
+        console.log(any)
       }
     });
   }
@@ -60,6 +65,10 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       takeUntil(this.destroySubject$)).subscribe({
       next: (q) => {
         this.question = q
+        this.loaded=true
+      },
+      error:(any) => {
+        console.log(any)
       }
     })
   }
@@ -70,6 +79,9 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (answers) => {
           this.answers = answers;
+        },
+        error:(any) => {
+          console.log(any)
         }
       })
   }
@@ -80,30 +92,46 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (tags) => {
           this.tags = tags;
+        },
+        error:(any) => {
+          console.log(any)
         }
       })
   }
 
   submitForm() {
-    this.service.postAnswer(
-      this.form.get('title')?.value,
-      this.form.get('questionText')?.value,
-      this.id,
-      this.userId,
-      []
-    ).pipe(take(1)).subscribe((response: QuestionInterface) => {
-      this.answers.push(response);
-    })
-    this.input1=""
-    this.input2=""
+    if (this.form.get('title')?.value == ""
+      || this.form.get('questionText')?.value == ""
+      || this.form.get('title')?.value == null
+      || this.form.get('questionText')?.value == null)
+    {
+      this.badAnswer = true;
+    }
+    else {
+      this.service.postAnswer(
+        this.form.get('title')?.value,
+        this.form.get('questionText')?.value,
+        this.id,
+        this.userId,
+        []
+      ).pipe(take(1)).subscribe((response: QuestionInterface) => {
+        this.answers.push(response);
+      })
+      this.input1 = ""
+      this.input2 = ""
+    }
   }
   increaseViews()
   {
-    console.log("inside increase views")
     this.service.increaseViews(this.id!!)
       .pipe(takeUntil(this.destroySubject$))
-      .subscribe(() => {
-        this.getViews()
+      .subscribe({
+        next : (any) => {
+          this.getViews()
+        },
+        error:(any) => {
+          console.log(any)
+        }
       })
   }
   getViews()
@@ -113,12 +141,37 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (num)=>{
           this.views = num
+        },
+        error:(any) => {
+          console.log(any)
         }
       })
   }
   ngOnDestroy() {
     this.destroySubject$.next();
     this.destroySubject$.complete();
+  }
+  getAscendingQuestions()
+  {
+    this.service.getSortedByLikesAscending(this.question!!.id)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({
+        next: (sorted) =>
+        {
+          this.answers = sorted
+        }
+      })
+  }
+  getDescendingQuestions()
+  {
+    this.service.getSortedByLikesDescending(this.question!!.id)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({
+        next: (sorted) =>
+        {
+          this.answers = sorted
+        }
+      })
   }
 
 

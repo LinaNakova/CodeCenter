@@ -2,6 +2,7 @@ import {Component, Input, OnInit, OnDestroy} from '@angular/core';
 import {QuestionInterface} from "../questionInterface";
 import {CodeService} from "../code.service";
 import {Subject, takeUntil} from "rxjs";
+import {TagInterface} from "../tagInterface";
 
 @Component({
   selector: 'app-question',
@@ -11,14 +12,21 @@ import {Subject, takeUntil} from "rxjs";
 export class QuestionComponent implements OnInit {
   @Input()
   question : QuestionInterface | undefined
-  tags : String [] = []
+  tags : TagInterface [] = []
   answers : number | undefined
   destroySubject$ = new Subject<void>()
+  date : string | undefined
+
   constructor(private service : CodeService) { }
 
   ngOnInit(): void {
     this.getQuestionTags()
     this.getQuestionAnswers()
+    this.getDate()
+  }
+  getDate()
+  {
+    this.date = this.question?.date.substring(0,10);
   }
   getQuestionTags()
   {
@@ -26,7 +34,6 @@ export class QuestionComponent implements OnInit {
         .pipe(takeUntil(this.destroySubject$))
         .subscribe({
           next: (tags ) => {
-            console.log(tags)
             this.tags = tags
           }
         })

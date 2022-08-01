@@ -1,8 +1,13 @@
-<div class="proba">
+<div class="proba" *ngIf="loaded; else loadingTemplate">
   <app-heading [title]="title"></app-heading>
+  <hr>
   <div class="tags">
     <app-tag *ngFor="let tag of tags" [t] = tag></app-tag>
   </div>
 </div>
+
+<ng-template #loadingTemplate>
+  <object data="../../assets/spinner.svg" class="proba"> </object>
+</ng-template>
 
 

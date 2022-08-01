@@ -10,6 +10,7 @@ import {CodeService} from "../code.service";
 export class UsersComponent implements OnInit {
   title="All Users"
   users : UserInterface[] = []
+  loaded = false
   constructor(private service : CodeService) { }
 
   ngOnInit(): void {
@@ -20,6 +21,7 @@ export class UsersComponent implements OnInit {
     this.service.getUsers().subscribe({
       next: (users) => {
         this.users = users;
+        this.loaded = true
       }
     })
   }
