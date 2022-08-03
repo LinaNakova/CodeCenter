@@ -13,7 +13,7 @@ import {TagInterface} from "../tagInterface";
 export class AskQuestionComponent implements OnInit {
   title = "Ask a Question"
   listOfTags: number [] = []
-  userId: number = 1
+  userId: number = 2
   parentQuestionId = null;
   form: FormGroup;
   bold = false;

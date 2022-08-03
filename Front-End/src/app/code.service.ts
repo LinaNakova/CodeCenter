@@ -42,6 +42,7 @@ export class CodeService {
   getSortedByTitleAscending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByTitleAscending}`)
   }
+
   getSortedByTitleDescending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByTitleDescending}`)
   }
@@ -135,68 +136,67 @@ export class CodeService {
       })
   }
 
-  postLike(like : LikeInterface)
-  {
-    return this.httpClient.post("http://localhost:4200/api/questions/likes",like)
+  postLike(like: LikeInterface) {
+    return this.httpClient.post("http://localhost:4200/api/questions/likes", like)
   }
-  getLikes(id : number) : Observable<number>
-  {
+
+  getLikes(id: number): Observable<number> {
     return this.httpClient.get<number>(`${this.questionsUrl}/likes/${id}`)
   }
-  increaseViews(id : number)
-  {
-    return this.httpClient.post(`http://localhost:4200/api/questions/increase/${id}`,"")
+
+  increaseViews(id: number) {
+    return this.httpClient.post(`http://localhost:4200/api/questions/increase/${id}`, "")
   }
-  getViews(id : number) : Observable<number>
-  {
+
+  getViews(id: number): Observable<number> {
     return this.httpClient.get<number>(`${this.questionsUrl}/views/${id}`)
   }
-  getUserById(id : number) : Observable<UserInterface>
-  {
+
+  getUserById(id: number): Observable<UserInterface> {
     return this.httpClient.get<UserInterface>(`${this.getUsersUrl}/${id}`)
   }
-  getQuestionsFromUser(id : number) : Observable<QuestionInterface[]>
-  {
+
+  getQuestionsFromUser(id: number): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}/fromUser/${id}`)
   }
-  getAnswersFromUser(id : number) : Observable<QuestionInterface[]>
-  {
+
+  getAnswersFromUser(id: number): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}/answersFromUser/${id}`)
   }
-  getTagsFromUser(id : number)
-  {
+
+  getTagsFromUser(id: number) {
     return this.httpClient.get<TagInterface[]>(`${this.tagsUrl}/tagsFromUser/${id}`)
   }
-  getSortedByViewsAscending() : Observable<QuestionInterface[]>
-  {
+
+  getSortedByViewsAscending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByViewsAscending}`)
   }
-  getSortedByViewsDescending() : Observable<QuestionInterface[]>
-  {
+
+  getSortedByViewsDescending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByViewsDescending}`)
   }
-  getSortedByLikesAscending(id : number) : Observable<QuestionInterface[]>
-  {
+
+  getSortedByLikesAscending(id: number): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByLikesAscending}/${id}`)
   }
-  getSortedByLikesDescending(id : number) : Observable<QuestionInterface[]>
-  {
+
+  getSortedByLikesDescending(id: number): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByLikesDescending}/${id}`)
   }
-  getSortedByAnswersDescending(): Observable<QuestionInterface[]>
-  {
+
+  getSortedByAnswersDescending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByAnswersDescending}`)
   }
-  getSortedByAnswersAscending(): Observable<QuestionInterface[]>
-  {
+
+  getSortedByAnswersAscending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByAnswersAscending}`)
   }
-  getSortedByDate() : Observable<QuestionInterface[]>
-  {
+
+  getSortedByDate(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateAscending}`)
   }
-  getSortedByDateDescending() : Observable<QuestionInterface[]>
-  {
+
+  getSortedByDateDescending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateDescending}`)
   }
 

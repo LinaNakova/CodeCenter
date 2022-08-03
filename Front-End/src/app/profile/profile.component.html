@@ -1,35 +1,40 @@
-<div class="proba" *ngIf="user?.id">
-  <div class="user-info">
-    <img src="{{user?.link_img}}" alt="profile image">
-    <h4 id="username">{{user?.username}}</h4>
+<div class="proba" *ngIf="loaded; else loadingTemplate">
+  <div class="proba" *ngIf="user?.id == null">
+    <h3>
+      Oops... Something went wrong
+    </h3>
+    <img src="https://i.ibb.co/4KVqHQz/Pngtree-cartoon-hand-drawn-business-404-5391377-1.png" alt="error image">
   </div>
-  <div class="container">
-    <div>
-      <h4>Asked Questions</h4>
-      <h6 *ngIf="questions.length == 0">No asked questions yet...</h6>
-      <div class="questions">
-        <app-small-question-card *ngFor="let question of questions" [question]="question"></app-small-question-card>
-      </div>
+  <div *ngIf="user?.id!=null">
+    <div class="user-info">
+      <img src="{{user?.link_img}}" alt="profile image">
+      <h4 id="username">{{user?.username}}</h4>
     </div>
-    <div>
-      <h4>Answers For Questions</h4>
-      <h6 *ngIf="answers.length == 0">No given answers yet...</h6>
-      <div class="questions">
-        <app-small-answer-card *ngFor="let answer of answers" [question]="answer"></app-small-answer-card>
+    <div class="container">
+      <div>
+        <h4>Asked Questions</h4>
+        <h6 *ngIf="questions.length == 0">No asked questions yet...</h6>
+        <div class="questions">
+          <app-small-question-card *ngFor="let question of questions" [question]="question"></app-small-question-card>
+        </div>
       </div>
-    </div>
-    <div>
-      <h4>Tags Mentioned In Asked Questions</h4>
-      <h6 *ngIf="tags.length == 0">No tagged questions yet...</h6>
-      <div class="questions">
-        <app-tag *ngFor="let tag of tags" [t]="tag"></app-tag>
+      <div>
+        <h4>Answers For Questions</h4>
+        <h6 *ngIf="answers.length == 0">No given answers yet...</h6>
+        <div class="questions">
+          <app-small-answer-card *ngFor="let answer of answers" [question]="answer"></app-small-answer-card>
+        </div>
+      </div>
+      <div>
+        <h4>Tags Mentioned In Asked Questions</h4>
+        <h6 *ngIf="tags.length == 0">No tagged questions yet...</h6>
+        <div class="questions">
+          <app-tag *ngFor="let tag of tags" [t]="tag"></app-tag>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<div class="proba" *ngIf="user?.id == null">
-  <h3>
-    Oops... Something went wrong
-  </h3>
-  <img src="https://i.ibb.co/4KVqHQz/Pngtree-cartoon-hand-drawn-business-404-5391377-1.png" alt="error image">
-</div>
+<ng-template #loadingTemplate>
+  <object data="../../assets/spinner.svg" width="300" height="300"></object>
+</ng-template>

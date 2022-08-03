@@ -14,9 +14,9 @@ export class TopQuestionsComponent implements OnInit {
   questionLength: number | undefined;
   page: number = 1;
   count: number = 0;
-  tableSize: number = 7;
+  tableSize: number = 5;
   tableSizes: any = [3, 6, 9, 12];
-  destorySubject$ = new Subject<void>()
+  destroySubject$ = new Subject<void>()
   loaded = false
 
   constructor(private service: CodeService) {
@@ -42,7 +42,7 @@ export class TopQuestionsComponent implements OnInit {
 
   getDescendingQuestions() {
     this.service.getSortedByViewsDescending()
-      .pipe(takeUntil(this.destorySubject$))
+      .pipe(takeUntil(this.destroySubject$))
       .subscribe({
         next: (sorted) => {
           this.questions = sorted
@@ -53,7 +53,7 @@ export class TopQuestionsComponent implements OnInit {
 
   getAscendingQuestions() {
     this.service.getSortedByViewsAscending()
-      .pipe(takeUntil(this.destorySubject$))
+      .pipe(takeUntil(this.destroySubject$))
       .subscribe({
         next: (sorted) => {
           this.questions = sorted
@@ -108,8 +108,8 @@ export class TopQuestionsComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.destorySubject$.next()
-    this.destorySubject$.complete()
+    this.destroySubject$.next()
+    this.destroySubject$.complete()
   }
 
 }

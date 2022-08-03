@@ -19,6 +19,8 @@ export class ProfileComponent implements OnInit {
   questions : QuestionInterface [] = []
   answers : QuestionInterface [] = []
   tags : TagInterface [] = []
+  loaded : boolean = false;
+
   constructor(private service: CodeService, private route : ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -49,6 +51,7 @@ export class ProfileComponent implements OnInit {
         next: (user) =>
     {
       this.user = user
+      this.loaded = true
     }
       })
   }
