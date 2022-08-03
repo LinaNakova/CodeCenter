@@ -19,9 +19,17 @@ import {QuestionDetailsComponent} from './question-details/question-details.comp
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {AddTagComponent} from './add-tag/add-tag.component';
 import {NgxPaginationModule} from "ngx-pagination";
-import { UserComponent } from './user/user.component';
-import { UsersComponent } from './users/users.component';
-import { AllQuestionsWithTagComponent } from './all-questions-with-tag/all-questions-with-tag.component';
+import {UserComponent} from './user/user.component';
+import {UsersComponent} from './users/users.component';
+import {AllQuestionsWithTagComponent} from './all-questions-with-tag/all-questions-with-tag.component';
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {HomeComponent} from './home/home.component';
+import {ProfileComponent} from './profile/profile.component';
+import {BoardAdminComponent} from './board-admin/board-admin.component';
+import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
+import {BoardUserComponent} from './board-user/board-user.component';
+import {httpInterceptorProviders} from './_helpers/http.interceptor';
 
 @NgModule({
   declarations: [
@@ -40,7 +48,14 @@ import { AllQuestionsWithTagComponent } from './all-questions-with-tag/all-quest
     AddTagComponent,
     UserComponent,
     UsersComponent,
-    AllQuestionsWithTagComponent
+    AllQuestionsWithTagComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    ProfileComponent,
+    BoardAdminComponent,
+    BoardModeratorComponent,
+    BoardUserComponent
   ],
   imports: [
     BrowserModule,
@@ -51,7 +66,7 @@ import { AllQuestionsWithTagComponent } from './all-questions-with-tag/all-quest
     BrowserAnimationsModule,
     NgxPaginationModule,
   ],
-  providers: [],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule {

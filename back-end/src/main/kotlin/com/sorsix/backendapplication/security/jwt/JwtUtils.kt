@@ -22,7 +22,7 @@ class JwtUtils {
         val userPrincipal = authentication.principal as AppUser
 
         return Jwts.builder()
-            .setSubject(userPrincipal.email)
+            .setSubject(userPrincipal.username)
             .setIssuedAt(Date())
             .setExpiration(Date(Date().time + jwtExpirationMs!!))
             .signWith(SignatureAlgorithm.HS512, jwtSecret)

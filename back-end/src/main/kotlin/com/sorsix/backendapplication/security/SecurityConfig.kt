@@ -20,22 +20,24 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 class SecurityConfig(
     val authTokenFilter: AuthTokenFilter,
     val appUserService: AppUserService,
-    val unauthorizedHandler: AuthEntryPointJwt
+    val unauthorizedHandler: AuthEntryPointJwt,
 ) : WebSecurityConfigurerAdapter() {
 
-//    private val publicMatchers = arrayOf(
-//        "/api/auth/**",
-//        "/api/**"
-//    )
     private val publicMatchers = arrayOf(
-<<<<<<< HEAD
-     "/api/auth/**",
-     "/**"
-=======
         "/api/auth/**",
-        "/**"
->>>>>>> 50598884c64e84f77a8e9c5f0bb80bf0403c3ace
+        "/api/questions",
+        "/api/questions/withoutAnswers",
+        "/api/tags",
+        "/api/users",
+        "/allQuestionsWithTag/**",
+        "/api/questions/sorted",
+        "/api/withoutAnswers",
+        "/api/allQuestions/**",
+        "/api/tag/**",
+        "/api/questions/answers/**",
+        "/api/questions/tags/**"
     )
+
 
     private val adminMatchers = arrayOf(
         "/api/admin/**",
@@ -62,7 +64,7 @@ class SecurityConfig(
     }
 
     @Bean
-    fun passwordEncoderBean(): PasswordEncoder{
+    fun passwordEncoderBean(): PasswordEncoder {
         return BCryptPasswordEncoder()
     }
 

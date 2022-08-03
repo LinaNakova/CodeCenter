@@ -92,9 +92,9 @@ class QuestionController(
     fun getQuestionTags(@PathVariable id: Long): List<String> {
         return questionService.getQuestionTags(id).map { it.tag.name }
     }
+
     @GetMapping("/sorted")
-    fun getSortedQuestions() : List<Question>
-    {
+    fun getSortedQuestions(): List<Question> {
         return this.questionService.getSortedByTitle()
     }
 }

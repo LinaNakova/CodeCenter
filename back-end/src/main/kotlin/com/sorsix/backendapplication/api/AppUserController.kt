@@ -11,11 +11,10 @@ import org.springframework.web.bind.annotation.RestController
 @CrossOrigin("http://localhost:4200")
 @RequestMapping("/api/users")
 class AppUserController(
-    val userService : AppUserService
+    val userService: AppUserService,
 ) {
     @GetMapping()
-    fun getAllUsers() : List<AppUser>?
-    {
+    fun getAllUsers(): List<AppUser>? {
         return this.userService.findAll()
     }
 }
