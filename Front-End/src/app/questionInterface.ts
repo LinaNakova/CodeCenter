@@ -7,4 +7,6 @@ export interface QuestionInterface
   "questionText": string,
   "parentQuestion": QuestionInterface | undefined | null,
   "user": UserInterface
+  "views" : number
+  "date" : string
 }

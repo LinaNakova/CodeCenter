@@ -24,18 +24,20 @@ class SecurityConfig(
 ) : WebSecurityConfigurerAdapter() {
 
     private val publicMatchers = arrayOf(
-        "/api/auth/**",
-        "/api/questions",
-        "/api/questions/withoutAnswers",
-        "/api/tags",
-        "/api/users",
-        "/allQuestionsWithTag/**",
-        "/api/questions/sorted",
-        "/api/withoutAnswers",
-        "/api/allQuestions/**",
-        "/api/tag/**",
-        "/api/questions/answers/**",
-        "/api/questions/tags/**"
+//        "/api/auth/**",
+//        "/api/questions",
+//        "/api/questions/withoutAnswers",
+//        "/api/tags",
+//        "/api/users",
+//        "/allQuestionsWithTag/**",
+//        "/api/questions/sorted",
+//        "/api/withoutAnswers",
+//        "/api/allQuestions/**",
+//        "/api/tag/**",
+//        "/api/questions/answers/**",
+//        "/api/questions/tags/**",
+//        "/api/top-questions",
+    "/**"
     )
 
 

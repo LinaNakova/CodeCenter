@@ -1,0 +1,14 @@
+<div class="card mb-3" routerLink="/questions/{{this.question?.id}}">
+  <div class="row g-0">
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{question?.title}}</h5>
+        <p *ngFor="let tag of tags" class="tag">{{tag?.name}}</p>
+      </div>
+      <div class="card-body">
+        <p class="stats">{{answers}} answers</p>
+        <p class="stats">{{question?.views}} views</p>
+      </div>
+    </div>
+  </div>
+</div>

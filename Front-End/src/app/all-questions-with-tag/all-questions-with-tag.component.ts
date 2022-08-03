@@ -19,12 +19,13 @@ export class AllQuestionsWithTagComponent implements OnInit {
   count: number = 0;
   tableSize: number = 7;
   tableSizes: any = [3, 6, 9, 12];
+  loaded = false;
   constructor(private route:ActivatedRoute, private service: CodeService) { }
 
   ngOnInit(): void {
     this.getParameter()
-    this.getQuestions()
     this.getTag()
+    this.getQuestions()
   }
   getParameter()
   {
@@ -61,6 +62,7 @@ export class AllQuestionsWithTagComponent implements OnInit {
         next:(tag) =>
         {
           this.tag = tag;
+          this.loaded = true
         }
       })
   }

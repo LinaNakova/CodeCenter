@@ -1,6 +1,7 @@
 package com.sorsix.backendapplication.domain
 
 import com.fasterxml.jackson.annotation.JsonManagedReference
+import java.sql.Timestamp
 import java.util.*
 import javax.persistence.*
 
@@ -26,4 +27,10 @@ data class Question(
     @JoinColumn(name = "app_user_id")
     @JsonManagedReference
     val user: AppUser?,
+
+    @Column(name = "views")
+    val views: Int,
+
+    @Column(name = "date")
+    val date: Timestamp
 )

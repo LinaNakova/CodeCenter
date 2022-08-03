@@ -1,14 +1,14 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
-
-  <div class="questions">
+  <div class="questions" *ngIf="loaded; else loadingTemplate">
+    <hr>
     <app-question *ngFor="let question of allQuestions
                   | paginate: {
                   itemsPerPage: tableSize,
                   currentPage: page,
                   totalItems: count};
                   let i = index"
-                  [question] = question
+                  [question]=question
                   routerLink="/questions/{{question.id}}"></app-question>
     <pagination-controls
       previousLabel="Prev"
@@ -16,5 +16,7 @@
       (pageChange)="onTableDataChange($event)">
     </pagination-controls>
   </div>
-
+  <ng-template #loadingTemplate>
+    <object data="../../assets/spinner.svg"> </object>
+  </ng-template>
 </div>

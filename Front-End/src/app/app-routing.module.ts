@@ -38,6 +38,20 @@ const routes: Routes = [
   {path: 'admin', component: BoardAdminComponent},
 
   {path: "**", redirectTo: '/top-questions', pathMatch: "full"},
+
+// const routes: Routes = [
+//   {path:"top-questions", component:TopQuestionsComponent},
+//   {path:"questions", component:QuestionsComponent},
+//   {path:"tags", component:TagsComponent},
+//   {path:"askQuestion", component:AskQuestionComponent},
+//   {path:"questions/tagged/:tag", component: SearchResultsComponent},
+//   {path:"questions/:id", component: QuestionDetailsComponent},
+//   {path:"addTag", component: AddTagComponent},
+//   {path:"users", component: UsersComponent},
+//   {path:"allQuestionsWithTag/:id", component: AllQuestionsWithTagComponent},
+//   {path:"profile/:id", component: ProfileComponent},
+//   {path:"", redirectTo: '/top-questions', pathMatch:"full"},
+//   {path:"**", redirectTo: '/top-questions', pathMatch:"full"}
 ];
 
 @NgModule({

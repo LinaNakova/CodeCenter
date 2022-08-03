@@ -11,18 +11,19 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/api/tag")
 class TagController(
     val tagService: TagService,
-    val questionService : QuestionService
+    val questionService: QuestionService
 ) {
 
     @GetMapping
     fun getTags(): List<Tag>? {
         return tagService.getAllTags();
     }
+
     @GetMapping("/search/{tag}")
-    fun getSearchTags(@PathVariable tag : String) : List<Tag>?
-    {
+    fun getSearchTags(@PathVariable tag: String): List<Tag>? {
         return this.tagService.getSearchTags(tag)
     }
+
     @PostMapping
     fun createTag(@RequestBody request: TagRequest): ResponseEntity<String> {
         val result = tagService.createTag(
@@ -44,14 +45,19 @@ class TagController(
             ResponseEntity.badRequest().body(resultString);
         }
     }
+
     @GetMapping("/allQuestions/{tag}")
-    fun getAllQuestionsWithTag(@PathVariable tag : Long) : List<Question>?
-    {
+    fun getAllQuestionsWithTag(@PathVariable tag: Long): List<Question>? {
         return this.tagService.getAllQuestionsWithTag(tag)
     }
+
     @GetMapping("/{id}")
-    fun getById(@PathVariable id : Long) : Tag?
-    {
+    fun getById(@PathVariable id: Long): Tag? {
         return this.tagService.getTagById(id)
+    }
+
+    @GetMapping("/tagsFromUser/{id}")
+    fun getTagsFromUser(@PathVariable id: Long): Set<Tag>? {
+        return this.tagService.getTagsFromUser(id);
     }
 }

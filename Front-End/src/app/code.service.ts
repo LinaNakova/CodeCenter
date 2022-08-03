@@ -6,13 +6,15 @@ import {TagInterface} from "./tagInterface";
 import {FormInterface} from "./form";
 import {TagFormInterface} from "./TagFormInterface";
 import {UserInterface} from "./userInterface";
+import {LikeInterface} from "./likeInterface";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CodeService {
   questionsUrl = "/api/questions";
-  topQuestionsUrl = "/api/questions/sorted"
+  sortedByTitleAscending = "/api/questions/sortedByTitle"
+  sortedByTitleDescending = "/api/questions/sortedByTitleDescending"
   questionsWithoutAnswersUrl = "/api/questions/withoutAnswers";
   tagsUrl = "/api/tag"
   customWordUrl = "/api/questions/tagged"
@@ -21,6 +23,14 @@ export class CodeService {
   questionTagsUrl = "api/questions/tags"
   getUsersUrl = "/api/users"
   getQuestionsWithTag = "/api/tag/allQuestions"
+  sortedByViewsAscending = "/api/questions/sortedByViewsAscending"
+  sortedByViewsDescending = "/api/questions/sortedByViewsDescending"
+  sortedByLikesAscending = "/api/questions/sortedByLikesAscending"
+  sortedByLikesDescending = "/api/questions/sortedByLikesDescending"
+  sortedByAnswersDescending = "/api/questions/sortedByAnswersDescending"
+  sortedByAnswersAscending = "/api/questions/sortedByAnswersAscending"
+  sortedByDateAscending = "/api/questions/sortedByTimestamp"
+  sortedByDateDescending = "/api/questions/sortedByTimestampDescending"
 
   constructor(private httpClient: HttpClient) {
   }
@@ -29,8 +39,12 @@ export class CodeService {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}`)
   }
 
-  getTopQuestions(): Observable<QuestionInterface[]> {
-    return this.httpClient.get<QuestionInterface[]>(`${this.topQuestionsUrl}`)
+  getSortedByTitleAscending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByTitleAscending}`)
+  }
+
+  getSortedByTitleDescending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByTitleDescending}`)
   }
 
   getQuestionsWithoutAnswers(): Observable<QuestionInterface[]> {
@@ -53,8 +67,8 @@ export class CodeService {
     return this.httpClient.get<QuestionInterface[]>(`${this.questionAnswersUrl}/${id}`)
   }
 
-  getQuestionTags(id: number): Observable<String[]> {
-    return this.httpClient.get<String[]>(`${this.questionTagsUrl}/${id}`)
+  getQuestionTags(id: number): Observable<TagInterface[]> {
+    return this.httpClient.get<TagInterface[]>(`${this.questionTagsUrl}/${id}`)
   }
 
   getUsers(): Observable<UserInterface[]> {
@@ -112,13 +126,78 @@ export class CodeService {
   }
 
   postTag(name: string, description: string) {
-    let capitalized = name[0].toUpperCase() + name.slice(1)
-    const tag: TagFormInterface = {name: capitalized, description: description}
+    name = name.toLowerCase()
+    // let capitalized = name[0].toUpperCase() + name.slice(1)
+    const tag: TagFormInterface = {name: name, description: description}
     this.httpClient.post("http://localhost:4200/api/tag", tag)
       .subscribe({
         next: (response) => console.log(response),
         error: (error) => console.log(error),
       })
+  }
+
+  postLike(like: LikeInterface) {
+    return this.httpClient.post("http://localhost:4200/api/questions/likes", like)
+  }
+
+  getLikes(id: number): Observable<number> {
+    return this.httpClient.get<number>(`${this.questionsUrl}/likes/${id}`)
+  }
+
+  increaseViews(id: number) {
+    return this.httpClient.post(`http://localhost:4200/api/questions/increase/${id}`, "")
+  }
+
+  getViews(id: number): Observable<number> {
+    return this.httpClient.get<number>(`${this.questionsUrl}/views/${id}`)
+  }
+
+  getUserById(id: number): Observable<UserInterface> {
+    return this.httpClient.get<UserInterface>(`${this.getUsersUrl}/${id}`)
+  }
+
+  getQuestionsFromUser(id: number): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}/fromUser/${id}`)
+  }
+
+  getAnswersFromUser(id: number): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.questionsUrl}/answersFromUser/${id}`)
+  }
+
+  getTagsFromUser(id: number) {
+    return this.httpClient.get<TagInterface[]>(`${this.tagsUrl}/tagsFromUser/${id}`)
+  }
+
+  getSortedByViewsAscending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByViewsAscending}`)
+  }
+
+  getSortedByViewsDescending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByViewsDescending}`)
+  }
+
+  getSortedByLikesAscending(id: number): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByLikesAscending}/${id}`)
+  }
+
+  getSortedByLikesDescending(id: number): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByLikesDescending}/${id}`)
+  }
+
+  getSortedByAnswersDescending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByAnswersDescending}`)
+  }
+
+  getSortedByAnswersAscending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByAnswersAscending}`)
+  }
+
+  getSortedByDate(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateAscending}`)
+  }
+
+  getSortedByDateDescending(): Observable<QuestionInterface[]> {
+    return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateDescending}`)
   }
 
 }

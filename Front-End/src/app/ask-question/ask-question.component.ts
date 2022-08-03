@@ -14,13 +14,15 @@ import {StorageService} from "../_services/storage.service";
 export class AskQuestionComponent implements OnInit {
   title = "Ask a Question"
   listOfTags: number [] = []
-  userId: number = 1
+  userId: number = 2
   parentQuestionId = null;
   form: FormGroup;
   bold = false;
   italic = false;
   tags$!: Observable<TagInterface[]>
-  tags: string [] = []
+  tags: TagInterface [] = []
+  badAnswer = false
+  fiveTags = false
   private searchTerms = new Subject<string>();
 
   constructor(public fb: FormBuilder, private service: CodeService, private router: Router,
@@ -47,36 +49,51 @@ export class AskQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.tags$ = this.searchTerms.pipe(
-      debounceTime(500),
+      debounceTime(400),
       distinctUntilChanged(),
-      switchMap((term: string) => this.service.searchTags(term)),
+      switchMap((term: string) => this.service.searchTags(term.toLowerCase())),
     );
   }
 
   submitForm() {
-    console.log('app user id is:' + this.getAppUserId())
-
-    this.service.postForm(
-      this.form.get('title')?.value,
-      this.form.get('questionText')?.value,
-      this.parentQuestionId,
-      this.userId = this.getAppUserId(),
-      this.listOfTags);
-    this.router.navigate(['/questions']);
+    if (this.form.get('title')?.value == ""
+      || this.form.get('questionText')?.value == ""
+      || this.form.get('title')?.value == null
+      || this.form.get('questionText')?.value == null) {
+      this.badAnswer = true
+    } else {
+      this.service.postForm(
+        this.form.get('title')?.value,
+        this.form.get('questionText')?.value,
+        this.parentQuestionId,
+        this.userId,
+        this.listOfTags);
+      this.router.navigate(['/questions']);
+    }
   }
 
-  makeBold() {
-    this.bold = !this.bold;
+
+  addToTagList(t: TagInterface) {
+    if (this.listOfTags.length >= 5)
+    {
+      this.fiveTags = true
+    }
+    else if (this.tags.findIndex(tag => { return tag.name === t.name}) == -1) {
+      this.tags.push(t)
+      this.listOfTags.push(t?.id)
+    }
   }
 
-  makeItalic() {
-    this.italic = !this.italic;
-  }
-
-  addToTagList(id: number, name: string) {
-    console.log(id)
-    this.tags.push(name)
-    this.listOfTags.push(id)
+  deleteTag(t: TagInterface) {
+    const index = this.tags.findIndex(tag => {
+      return tag.name === t.name
+    })
+    this.tags.splice(index, 1)
+    this.listOfTags.splice(index, 1)
+    if (this.listOfTags.length < 5)
+    {
+      this.fiveTags = false
+    }
   }
 
 }

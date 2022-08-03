@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@CrossOrigin("http://localhost:4200",maxAge = 3600, allowCredentials = "true")
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("/api/auth")
 class AuthController(
     val appUserService: AppUserService,

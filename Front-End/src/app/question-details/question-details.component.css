@@ -30,12 +30,54 @@ app-question
 {
   display: flex;
   justify-content: flex-start;
+  margin-bottom: 20px;
 }
 .tag
 {
+  display: inline;
   background-color: #FA2742;
   color: #FFFFFF;
-  padding: 5px;
+  padding: 5px 10px 5px 10px;
   margin: 5px;
-  border-radius: 5px;
+  border-radius: 2px;
+  margin-left : 0;
+
+}
+small
+{
+  margin: 0;
+}
+app-heading
+{
+  margin-bottom: 0;
+}
+h5
+{
+  color: #FA2742;
+}
+small
+{
+  color: #b7b6b6;
+}
+.hide
+{
+  display: none;
+}
+.show
+{
+  display: block;
+}
+label
+{
+  color: #FA2742;
+  font-weight: 600;
+  font-size: large;
+}
+a{
+  text-decoration: none;
+  color: #FA2742;
+}
+form
+{
+  margin-bottom: 10px;
 }

@@ -1,15 +1,16 @@
 <div class="card mb-3" >
   <div class="row g-0">
     <div class="col-md-2 card-body">
-      <p>0 votes</p>
       <p>{{answers}} answers</p>
-      <p>5 views</p>
+      <p>{{question?.views}} views</p>
+      <p>Posted on {{date}}</p>
     </div>
     <div class="col-md-8">
       <div class="card-body">
+        <div>
         <h5 class="card-title">{{question?.title}}</h5>
-        <p class="card-text">{{question?.questionText}}</p>
-        <p *ngFor="let tag of tags" class="tag">{{tag}}</p>
+        <p *ngFor="let tag of tags" class="tag">{{tag?.name}}</p>
+        </div>
       </div>
     </div>
   </div>

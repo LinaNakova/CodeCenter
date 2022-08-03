@@ -4,6 +4,6 @@ h5
 }
 .card:hover
 {
-  box-shadow: 4px 3px 8px 1px #969696;
-  -webkit-box-shadow: 4px 3px 8px 1px #969696;
+  box-shadow: 2px 1px 4px 0.5px #d5d5d5;
+  -webkit-box-shadow: 2px 1px 4px 0.5px #d5d5d5;
 }

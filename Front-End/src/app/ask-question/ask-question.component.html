@@ -1,10 +1,9 @@
 <div class="proba">
   <app-heading [title]="title"></app-heading>
+  <hr>
   <div class="cont">
     <div class="left">
       <form [formGroup]="form" (ngSubmit)="submitForm()">
-
-
         <div class="mb-3 form-group">
           <label for="exampleFormControlInput1" class="form-label">Title</label>
           <p>Be specific and imagine you’re asking a question to another person</p>
@@ -14,30 +13,26 @@
         <div class="mb-3 form-group">
           <label for="exampleFormControlTextarea1" class="form-label">Body</label>
           <p>Include all the information someone would need to answer your question</p>
-          <button class="btn btn-outline-success styleButton" type="button" (click)="makeBold()">B</button>
-          <button class="btn btn-outline-success" type="button" (click)="makeItalic()">I</button>
           <textarea formControlName="questionText" class="form-control" id="exampleFormControlTextarea1" rows="3"
-                    placeholder="Enter problem description here..."
-                    [ngClass]="bold && italic ? 'bold italic'
-                    : bold && !italic ? 'bold italicNormal' :
-                     italic && !bold ? 'regularBold italic' :
-                      'regularBold italicNormal'"></textarea>
+                    placeholder="Enter problem description here..."></textarea>
         </div>
         <div class="mb-3 form-group">
           <label for="search-box" class="form-label">Tags</label>
           <p>Add up to 5 tags to describe what your question is about</p>
+          <p [ngClass]="fiveTags === false ? 'hide' : 'show'" >Five tags have already been added</p>
           <div class="tagContainer">
-            <p class="tag" *ngFor="let t of tags">{{t}}</p>
+          <p class="tag" *ngFor="let t of tags">{{t?.name}} <a (click)="deleteTag(t)">x</a></p>
           </div>
           <input type="text" class="form-control" #searchBox id="search-box" (input)="search(searchBox.value)">
           <ul class="search-result">
-            <li *ngFor="let tag of tags$ | async">
-              <a (click)="addToTagList(tag.id, tag.name)">
-                <app-tag [t]=tag></app-tag>
+            <li *ngFor="let tag of tags$ | async" >
+              <a (click)="addToTagList(tag)">
+                <app-tag-for-search [t] = tag></app-tag-for-search>
               </a>
             </li>
           </ul>
         </div>
+        <p [ngClass]="badAnswer === false ? 'hide' : 'show'" >Your answer couldn't be submitted. Please enter a title, and an answer</p>
         <button type="submit" value="Submit" class="btn btn-outline-success">Submit</button>
       </form>
     </div>
@@ -47,8 +42,8 @@
         <div class="card-header">1.Summarize the problem</div>
         <div class="card-body text-danger">
           <p class="card-text">Include details about your goal
-            Describe expected and actual results
-            Include any error messages</p>
+              Describe expected and actual results
+                  Include any error messages</p>
         </div>
       </div>
 

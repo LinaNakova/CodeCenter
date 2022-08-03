@@ -30,6 +30,10 @@ import {BoardAdminComponent} from './board-admin/board-admin.component';
 import {BoardModeratorComponent} from './board-moderator/board-moderator.component';
 import {BoardUserComponent} from './board-user/board-user.component';
 import {httpInterceptorProviders} from './_helpers/http.interceptor';
+import { AnswerComponent } from './answer/answer.component';
+import { TagForSearchComponent } from './tag-for-search/tag-for-search.component';
+import { SmallQuestionCardComponent } from './small-question-card/small-question-card.component';
+import { SmallAnswerCardComponent } from './small-answer-card/small-answer-card.component';
 
 @NgModule({
   declarations: [
@@ -49,13 +53,19 @@ import {httpInterceptorProviders} from './_helpers/http.interceptor';
     UserComponent,
     UsersComponent,
     AllQuestionsWithTagComponent,
+
     LoginComponent,
     RegisterComponent,
     HomeComponent,
     ProfileComponent,
     BoardAdminComponent,
     BoardModeratorComponent,
-    BoardUserComponent
+    BoardUserComponent,
+    AnswerComponent,
+    TagForSearchComponent,
+    ProfileComponent,
+    SmallQuestionCardComponent,
+    SmallAnswerCardComponent
   ],
   imports: [
     BrowserModule,
