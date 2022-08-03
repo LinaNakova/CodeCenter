@@ -3,6 +3,8 @@
   <div class="cont">
     <div class="left">
       <form [formGroup]="form" (ngSubmit)="submitForm()">
+
+
         <div class="mb-3 form-group">
           <label for="exampleFormControlInput1" class="form-label">Title</label>
           <p>Be specific and imagine you’re asking a question to another person</p>
@@ -25,13 +27,13 @@
           <label for="search-box" class="form-label">Tags</label>
           <p>Add up to 5 tags to describe what your question is about</p>
           <div class="tagContainer">
-          <p class="tag" *ngFor="let t of tags">{{t}}</p>
+            <p class="tag" *ngFor="let t of tags">{{t}}</p>
           </div>
           <input type="text" class="form-control" #searchBox id="search-box" (input)="search(searchBox.value)">
           <ul class="search-result">
-            <li *ngFor="let tag of tags$ | async" >
+            <li *ngFor="let tag of tags$ | async">
               <a (click)="addToTagList(tag.id, tag.name)">
-                <app-tag [t] = tag></app-tag>
+                <app-tag [t]=tag></app-tag>
               </a>
             </li>
           </ul>
@@ -45,8 +47,8 @@
         <div class="card-header">1.Summarize the problem</div>
         <div class="card-body text-danger">
           <p class="card-text">Include details about your goal
-              Describe expected and actual results
-                  Include any error messages</p>
+            Describe expected and actual results
+            Include any error messages</p>
         </div>
       </div>
 

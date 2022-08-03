@@ -4,6 +4,7 @@ import {CodeService} from "../code.service";
 import {Route, Router} from "@angular/router";
 import {debounceTime, distinctUntilChanged, Observable, Subject, switchMap} from "rxjs";
 import {TagInterface} from "../tagInterface";
+import {StorageService} from "../_services/storage.service";
 
 @Component({
   selector: 'app-ask-question',
@@ -18,11 +19,12 @@ export class AskQuestionComponent implements OnInit {
   form: FormGroup;
   bold = false;
   italic = false;
-  tags$! :Observable<TagInterface[]>
-  tags : string [] = []
+  tags$!: Observable<TagInterface[]>
+  tags: string [] = []
   private searchTerms = new Subject<string>();
 
-  constructor(public fb: FormBuilder, private service: CodeService, private router: Router) {
+  constructor(public fb: FormBuilder, private service: CodeService, private router: Router,
+              private storage: StorageService) {
     this.form = this.fb.group({
       title: [""],
       questionText: [""],
@@ -31,6 +33,14 @@ export class AskQuestionComponent implements OnInit {
       tagsId: [null],
     })
   }
+
+  getAppUserId() {
+    if (this.storage.getUser() != null) {
+      return this.storage.getUser().id
+    }
+    return undefined;
+  }
+
   search(term: string): void {
     this.searchTerms.next(term);
   }
@@ -44,11 +54,13 @@ export class AskQuestionComponent implements OnInit {
   }
 
   submitForm() {
+    console.log('app user id is:' + this.getAppUserId())
+
     this.service.postForm(
       this.form.get('title')?.value,
       this.form.get('questionText')?.value,
       this.parentQuestionId,
-      this.userId,
+      this.userId = this.getAppUserId(),
       this.listOfTags);
     this.router.navigate(['/questions']);
   }
@@ -56,12 +68,12 @@ export class AskQuestionComponent implements OnInit {
   makeBold() {
     this.bold = !this.bold;
   }
-  makeItalic()
-  {
+
+  makeItalic() {
     this.italic = !this.italic;
   }
-  addToTagList(id : number, name:string)
-  {
+
+  addToTagList(id: number, name: string) {
     console.log(id)
     this.tags.push(name)
     this.listOfTags.push(id)

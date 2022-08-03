@@ -1,11 +1,15 @@
 <nav class="navbar">
   <div class="container-fluid">
     <a class="navbar-brand" routerLink="/top-questions">
-      <img src="https://i.ibb.co/tY1d2SW/1-2-1.png" alt="logo" width="30" height="30" class="d-inline-block align-text-top">
+      <img src="https://i.ibb.co/tY1d2SW/1-2-1.png" alt="logo" width="30" height="30"
+           class="d-inline-block align-text-top">
       <span id="logo">CodeCenter</span>
     </a>
-      <input class="form-control me-2" type="text" placeholder="Search..." aria-label="Search" [(ngModel)]="searchTag">
-      <button class="btn btn-outline-success" type="submit" (click)="submitSearch()">Search</button>
-    <button id="login" class="btn btn-outline-success" type="button">Log In</button>
+    <input class="form-control me-2" type="text" placeholder="Search..." aria-label="Search" [(ngModel)]="searchTag">
+    <button class="btn btn-outline-success" type="submit" (click)="submitSearch()">Search</button>
+
+    <button *ngIf="!isLoggedIn" id="login" class="btn btn-outline-success" type="button" (click)="logIn()">Log In
+    </button>
+
   </div>
 </nav>

@@ -13,10 +13,6 @@ export class HttpRequestInterceptor implements HttpInterceptor {
     let user = this.storage.getUser();
     let isLoggedIn = user && user.token;
 
-
-    // req = req.clone({
-    //   withCredentials: true,
-    // });
     if (isLoggedIn) {
       req = req.clone({
         setHeaders: {
