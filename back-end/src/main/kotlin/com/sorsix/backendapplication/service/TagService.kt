@@ -48,7 +48,8 @@ class TagService(
 
     fun getTagsFromUser(id: Long): Set<Tag>? {
         return this.questionTagRepository.findAll()
-            .filter { questionTag -> questionTag.question.user?.id == id }
+            .filter { questionTag ->
+                questionTag.question.user?.id == id && questionTag.question.parentQuestion == null}
             .map { questionTag -> questionTag.tag }
             .toSet()
     }

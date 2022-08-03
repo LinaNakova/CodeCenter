@@ -3,9 +3,14 @@ package com.sorsix.backendapplication.service
 import com.sorsix.backendapplication.api.dto.LikeRequest
 import com.sorsix.backendapplication.domain.*
 import com.sorsix.backendapplication.repository.*
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
+import java.sql.Timestamp
+import java.time.Instant.now
+import java.time.LocalDateTime
 import javax.transaction.Transactional
 
 @Service
@@ -17,12 +22,14 @@ class QuestionService(
     val likeUnlikeRepository: LikeUnlikeRepository
 ) {
 
-    fun findAllQuestionsWithoutAnswers(): List<Question>? {
-        return questionRepository.findAll().filter { it.parentQuestion == null };
+    fun findAllQuestionsWithoutAnswers(page : Int, size : Int): List<Question>? {
+        val paging : Pageable = PageRequest.of(page, size);
+        return questionRepository
+            .findAllByParentQuestion(null,paging)
+            ?.toList()
     }
-
     fun findAll(): List<Question>? {
-        return questionRepository.findAll();
+        return questionRepository.findAll().toList()
     }
 
     @Transactional
@@ -50,7 +57,8 @@ class QuestionService(
 
             val question = Question(
                 title = title, questionText = questionText,
-                parentQuestion = parentQuestion, user = appUser, views = 0
+                parentQuestion = parentQuestion, user = appUser,
+                views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
             println(question)
             println(tags);
@@ -78,7 +86,8 @@ class QuestionService(
         } else {
             val question = Question(
                 title = title, questionText = questionText,
-                parentQuestion = parentQuestion, user = appUser, views = 0
+                parentQuestion = parentQuestion, user = appUser,
+                views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
             println(question)
             questionRepository.save(question);
@@ -108,6 +117,18 @@ class QuestionService(
 
     fun getSortedByTitle(): List<Question> {
         return this.questionRepository.findAll(Sort.by("title")).filter { it.parentQuestion == null }
+    }
+
+    fun getSortedByTitleDescending(): List<Question> {
+        return this.questionRepository.findAll(Sort.by("title").descending()).filter { it.parentQuestion == null }
+    }
+
+    fun getSortedByViewsDescending(): List<Question> {
+        return this.questionRepository.findAll(Sort.by("views").descending()).filter { it.parentQuestion == null }
+    }
+
+    fun getSortedByViewsAscending(): List<Question> {
+        return this.questionRepository.findAll(Sort.by("views").ascending()).filter { it.parentQuestion == null }
     }
 
     fun getLikes(id: Long): Int {
@@ -162,5 +183,36 @@ class QuestionService(
             .filter { question -> question.parentQuestion?.id !== null }
     }
 
+    fun sortByLikes(id: Long): List<Question>? {
+        return this.getAnswersForQuestion(id)?.sortedBy { answer -> this.getLikes(answer.id) }
+    }
 
+    fun sortByLikesDescending(id: Long): List<Question>? {
+        return this.getAnswersForQuestion(id)?.sortedByDescending { answer -> this.getLikes(answer.id) }
+    }
+
+    fun sortByAnswersAscending(): List<Question>? {
+        return this.questionRepository
+            .findAll().filter { it.parentQuestion == null }
+            .sortedBy { question -> this.getAnswersForQuestion(question.id)?.size }
+    }
+
+    fun sortByAnswersDescending(): List<Question>? {
+        return this.questionRepository
+            .findAll().filter { it.parentQuestion == null }
+            .sortedByDescending { question -> this.getAnswersForQuestion(question.id)?.size }
+    }
+
+    fun sortByDateAscending(): List<Question>? {
+        return this.questionRepository
+            .findAll(Sort.by("date"))
+            .filter { it.parentQuestion == null }
+
+    }
+    fun sortByDateDescending(): List<Question>? {
+        return this.questionRepository
+            .findAll(Sort.by("date").descending())
+            .filter { it.parentQuestion == null }
+
+    }
 }

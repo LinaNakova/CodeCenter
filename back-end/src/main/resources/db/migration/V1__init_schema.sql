@@ -22,9 +22,10 @@ CREATE TABLE question
     id                 bigserial primary key,
     title              text   not null,
     question_text      text   not null,
-    parent_question_id bigint default null,
+    parent_question_id bigint    default null,
     app_user_id        bigint not null,
-    views              bigint default 0,
+    views              bigint    default 0,
+    date               timestamp default now(),
     constraint fk_question_user_id foreign key (app_user_id) references app_users (id),
     constraint fk_question_parent_question_id foreign key (parent_question_id) references question (id)
 );
