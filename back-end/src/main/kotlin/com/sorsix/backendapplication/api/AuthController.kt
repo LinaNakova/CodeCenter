@@ -7,6 +7,7 @@ import com.sorsix.backendapplication.domain.AppUser
 import com.sorsix.backendapplication.domain.enum.AppUserRole
 import com.sorsix.backendapplication.security.jwt.JwtUtils
 import com.sorsix.backendapplication.service.AppUserService
+import org.springframework.http.ResponseCookie
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -23,19 +24,20 @@ class AuthController(
     val appUserService: AppUserService,
     val authenticationManager: AuthenticationManager,
     val jwtUtils: JwtUtils,
-    val passwordEncoder: PasswordEncoder
+    val passwordEncoder: PasswordEncoder,
 ) {
     val links = arrayOf("https://i.ibb.co/9HHWVWf/Pngtree-smiling-people-avatar-set-different-7690733-1.png",
-    "https://i.ibb.co/PxnMFQH/Pngtree-smiling-people-avatar-set-different-7690729-1.png",
-    "https://i.ibb.co/2WkfTb7/Pngtree-smiling-people-avatar-set-different-7691712-1.png",
-    "https://i.ibb.co/YkyqgtF/Pngtree-smiling-people-avatar-set-different-7690948-1.png",
-    "https://i.ibb.co/q5LT0XK/Pngtree-smiling-people-avatar-set-different-7691623-1.png",
-    "https://i.ibb.co/0DLpV4S/Pngtree-smiling-people-avatar-set-different-7691526-1.png")
-    fun generateRandomAvatar() : String
-    {
+        "https://i.ibb.co/PxnMFQH/Pngtree-smiling-people-avatar-set-different-7690729-1.png",
+        "https://i.ibb.co/2WkfTb7/Pngtree-smiling-people-avatar-set-different-7691712-1.png",
+        "https://i.ibb.co/YkyqgtF/Pngtree-smiling-people-avatar-set-different-7690948-1.png",
+        "https://i.ibb.co/q5LT0XK/Pngtree-smiling-people-avatar-set-different-7691623-1.png",
+        "https://i.ibb.co/0DLpV4S/Pngtree-smiling-people-avatar-set-different-7691526-1.png")
+
+    fun generateRandomAvatar(): String {
         val random = (0..5).random();
         return links.get(random)
     }
+
     @PostMapping("/register")
     fun register(@RequestBody registerRequest: RegisterRequest): ResponseEntity<Any> {
         // TODO Checks if user is valid :)
@@ -83,6 +85,5 @@ class AuthController(
         )
 
     }
-
 
 }

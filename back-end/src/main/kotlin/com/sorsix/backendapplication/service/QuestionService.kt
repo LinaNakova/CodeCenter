@@ -19,15 +19,16 @@ class QuestionService(
     val tagRepository: TagRepository,
     val questionTagRepository: QuestionTagRepository,
     val appUserRepository: AppUserRepository,
-    val likeUnlikeRepository: LikeUnlikeRepository
+    val likeUnlikeRepository: LikeUnlikeRepository,
 ) {
 
-    fun findAllQuestionsWithoutAnswers(page : Int, size : Int): List<Question>? {
-        val paging : Pageable = PageRequest.of(page, size);
+    fun findAllQuestionsWithoutAnswers(page: Int, size: Int): List<Question>? {
+        val paging: Pageable = PageRequest.of(page, size);
         return questionRepository
-            .findAllByParentQuestion(null,paging)
+            .findAllByParentQuestion(null, paging)
             ?.toList()
     }
+
     fun findAll(): List<Question>? {
         return questionRepository.findAll().toList()
     }
@@ -58,7 +59,7 @@ class QuestionService(
             val question = Question(
                 title = title, questionText = questionText,
                 parentQuestion = parentQuestion, user = appUser,
-                views = 0, date = Timestamp.valueOf(LocalDateTime.now())
+                views = 0, date = Timestamp.valueOf(LocalDateTime.now()), isAnswered = false
             )
             println(question)
             println(tags);
@@ -87,7 +88,7 @@ class QuestionService(
             val question = Question(
                 title = title, questionText = questionText,
                 parentQuestion = parentQuestion, user = appUser,
-                views = 0, date = Timestamp.valueOf(LocalDateTime.now())
+                views = 0, date = Timestamp.valueOf(LocalDateTime.now()), isAnswered = false
             )
             println(question)
             questionRepository.save(question);
@@ -162,6 +163,11 @@ class QuestionService(
     }
 
     @Transactional
+    fun closeQuestion(questionId: Long) {
+        this.questionRepository.closeQuestion(questionId);
+    }
+
+    @Transactional
     fun increaseViews(id: Long) {
         println("Inside backend service call\n")
         this.questionRepository.increaseViews(id)
@@ -209,6 +215,7 @@ class QuestionService(
             .filter { it.parentQuestion == null }
 
     }
+
     fun sortByDateDescending(): List<Question>? {
         return this.questionRepository
             .findAll(Sort.by("date").descending())
