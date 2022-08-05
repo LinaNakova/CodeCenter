@@ -1,10 +1,8 @@
-<div class="col-md-12">
-  <div class="card card-container">
-    <!--    <img-->
-    <!--      id="profile-img"-->
-    <!--      src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"-->
-    <!--      class="profile-img-card"-->
-    <!--    />-->
+<div class="proba center-form">
+<div class="col-md-6">
+  <a href='https://www.linkpicture.com/view.php?img=LPic62eb987c227a1452912533'><img src='https://www.linkpicture.com/q/code-1.png' type='image'></a>
+  <h3>Code Center</h3>
+  <div>
     <form
       *ngIf="!isLoggedIn"
       name="form"
@@ -51,6 +49,11 @@
           Login
         </button>
       </div>
+      <div class="sign-up-div">
+      <p>Don't have an account yet?</p>
+      <button id="register" class="btn btn-outline-success" routerLink="/register">Sign up</button>
+        <p>for free!</p>
+      </div>
       <div class="form-group">
         <div *ngIf="f.submitted && isLoginFailed" class="alert alert-danger" role="alert">
           Login failed: {{ errorMessage }}
@@ -61,4 +64,5 @@
       Logged in as {{ roles }}.
     </div>
   </div>
+</div>
 </div>

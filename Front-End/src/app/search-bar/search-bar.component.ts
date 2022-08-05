@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
+import {StorageService} from "../_services/storage.service";
 
 @Component({
   selector: 'app-search-bar',
@@ -8,9 +9,13 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class SearchBarComponent implements OnInit {
   searchTag : string = ''
-  constructor(private router:Router, private route : ActivatedRoute) { }
+  isLoggedIn : boolean | undefined
+  user : any
+  constructor(private router:Router, private route : ActivatedRoute, private storageService : StorageService) { }
 
   ngOnInit(): void {
+    this.isLoggedIn = this.storageService.isLoggedIn()
+    this.user = this.storageService.getUser()
   }
   submitSearch() {
     if (this.searchTag != null && this.searchTag != "") {

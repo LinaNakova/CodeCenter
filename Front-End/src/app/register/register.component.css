@@ -1,0 +1,42 @@
+.btn-outline-success {
+  background-color: #FA2742;
+  color: #FFFFFF;
+  border-color: #FA2742;
+  margin-top: 10px;
+}
+
+label {
+  color: #FA2742;
+  font-size: larger;
+}
+
+.register {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+div.col-md-6 {
+  margin: 5px;
+}
+svg
+{
+  display: inline;
+  color: #FA2742;
+}
+.to-do
+{
+  display: flex;
+  align-items: baseline;
+}
+h4
+{
+  margin-bottom: 10px;
+  color: #FA2742;
+}
+h5
+{
+  color: gray;
+  font-weight: normal;
+}

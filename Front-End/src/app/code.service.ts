@@ -199,5 +199,9 @@ export class CodeService {
   getSortedByDateDescending(): Observable<QuestionInterface[]> {
     return this.httpClient.get<QuestionInterface[]>(`${this.sortedByDateDescending}`)
   }
+  getQuestionLiked(qid : number, uid : number) : Observable<boolean>
+  {
+    return this.httpClient.get<boolean>(`${this.questionsUrl}/checkIfLikedByUser/${qid}/${uid}`)
+  }
 
 }

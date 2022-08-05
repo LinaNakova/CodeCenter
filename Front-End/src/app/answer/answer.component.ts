@@ -3,7 +3,7 @@ import {QuestionInterface} from "../questionInterface";
 import {Subject, takeUntil} from "rxjs";
 import {CodeService} from "../code.service";
 import {LikeInterface} from "../likeInterface";
-import {TagInterface} from "../tagInterface";
+import {StorageService} from "../_services/storage.service";
 
 @Component({
   selector: 'app-answer',
@@ -17,16 +17,43 @@ export class AnswerComponent implements OnInit {
   likes : number | undefined
   disableUp : boolean = false
   disableDown : boolean = false
-  constructor(private service : CodeService) { }
+  liked : boolean | undefined
+  isLoggedIn : boolean | undefined
+  user : any
+  like : boolean | undefined
+  constructor(private service : CodeService,
+              private storage : StorageService) { }
 
   ngOnInit(): void {
     this.getLikes();
+    this.isLoggedIn = this.storage.isLoggedIn()
+    if (this.isLoggedIn)
+    {
+      this.user = this.storage.getUser()
+      this.getQuestionLikedByUser()
+    }
   }
-  ngOnDestroy() : void
+
+  getQuestionLikedByUser()
   {
-    this.destroySubject$.next();
-    this.destroySubject$.complete();
+    this.service.getQuestionLiked(this.question!!.id, this.user.id)
+      .pipe(takeUntil(this.destroySubject$))
+      .subscribe({
+        next:(like) => {
+          this.like = like
+          console.log(like + " blabalbalalbal")
+          this.isQuestionLikedByUser(this.like)
+        },
+        error: (err) => {
+          console.log(err)
+        }
+      })
   }
+  isQuestionLikedByUser(like : boolean)
+  {
+    this.liked = like
+  }
+
   getLikes()
   {
     this.service.getLikes(this.question!!.id)
@@ -40,25 +67,31 @@ export class AnswerComponent implements OnInit {
   }
   postLike()
   {
-    let like : LikeInterface = { question_id : this.question!!.id, user_id : 1, like : true}
+    let like : LikeInterface = { question_id : this.question!!.id, user_id : this.user.id, like : true}
     this.service.postLike(like)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe(() => {
         this.likes!!++;
-        this.disableUp = true;
-        this.disableDown = false;
+        // this.disableUp = true;
+        // this.disableDown = false;
+        this.liked = true;
       })
   }
   postUnlike()
   {
-    let like : LikeInterface = { question_id : this.question!!.id, user_id : 1, like : false}
+    let like : LikeInterface = { question_id : this.question!!.id, user_id : this.user.id, like : false}
     this.service.postLike(like)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe(() => {
         this.likes!!--;
-        this.disableUp = false;
-        this.disableDown = true;
+        this.liked = false
       })
   }
+  ngOnDestroy() : void
+  {
+    this.destroySubject$.next();
+    this.destroySubject$.complete();
+  }
+
 
 }

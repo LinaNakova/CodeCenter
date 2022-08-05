@@ -7,7 +7,7 @@
   </div>
   <div *ngIf="tag?.id != null">
   <app-heading [title]="tag!.name"></app-heading>
-
+  <hr>
   <div class="questions">
     <app-question *ngFor="let question of questions
                   | paginate: {

@@ -1,0 +1,12 @@
+app-question
+{
+  left: 0;
+  right: 0;
+  width: 100%;
+}
+.proba{
+  height: 100%;
+  width: 100%;
+  background-color: #E8EAE3;
+  padding: 30px;
+}

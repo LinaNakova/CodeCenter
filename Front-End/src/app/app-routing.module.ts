@@ -27,16 +27,14 @@ const routes: Routes = [
   {path: "addTag", component: AddTagComponent},
   {path: "users", component: UsersComponent},
   {path: "allQuestionsWithTag/:id", component: AllQuestionsWithTagComponent},
-  {path: "", redirectTo: '/top-questions', pathMatch: "full"},
-
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile/:id', component: ProfileComponent},
   {path: 'user', component: BoardUserComponent},
   {path: 'mod', component: BoardModeratorComponent},
   {path: 'admin', component: BoardAdminComponent},
-
+  {path: "", redirectTo: '/top-questions', pathMatch: "full"},
   {path: "**", redirectTo: '/top-questions', pathMatch: "full"},
 
 // const routes: Routes = [
