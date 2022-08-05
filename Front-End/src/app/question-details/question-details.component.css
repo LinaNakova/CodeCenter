@@ -81,3 +81,12 @@ form
 {
   margin-bottom: 10px;
 }
+small
+{
+  padding: 0 5px 0 5px;
+  color: #fa4960;
+}
+#author:hover
+{
+  cursor: pointer;
+}

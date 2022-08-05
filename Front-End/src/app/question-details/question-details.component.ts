@@ -5,6 +5,7 @@ import { filter, map, Observable, Subject, take, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {TagInterface} from "../tagInterface";
+import {StorageService} from "../_services/storage.service";
 
 @Component({
   selector: 'app-question-details',
@@ -27,7 +28,8 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
 
   constructor(public fb: FormBuilder,
               private service: CodeService,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private storage : StorageService) {
     this.form = this.fb.group({
       title: [""],
       questionText: [""],
@@ -98,6 +100,12 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
         }
       })
   }
+  getAppUserId() {
+    if (this.storage.getUser() != null) {
+      return this.storage.getUser().id
+    }
+    return undefined;
+  }
 
   submitForm() {
     if (this.form.get('title')?.value == ""
@@ -112,7 +120,7 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
         this.form.get('title')?.value,
         this.form.get('questionText')?.value,
         this.id,
-        this.userId,
+        this.getAppUserId(),
         []
       ).pipe(take(1)).subscribe((response: QuestionInterface) => {
         this.answers.push(response);

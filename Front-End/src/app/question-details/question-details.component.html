@@ -8,6 +8,7 @@
   <div *ngIf="question?.id != null">
     <app-heading [title]="question?.title"></app-heading>
     <small>{{views}} views</small>
+    <small routerLink="/profile/{{question?.user?.id}}" id="author">Author: {{question?.user?.username}}</small>
     <hr>
     <pre><code>{{question?.questionText}}</code></pre>
     <div class="tags">
@@ -16,7 +17,7 @@
     <h5>{{answers.length}} Answers</h5>
     <hr>
     <div class="sorting-row">
-      <span class="type-sorting">Sort by views: </span>
+      <span class="type-sorting">Sort by votes: </span>
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sort-numeric-down"
            viewBox="0 0 16 16" (click)="getAscendingQuestions()">
         <path d="M12.438 1.668V7H11.39V2.684h-.051l-1.211.859v-.969l1.262-.906h1.046z"/>

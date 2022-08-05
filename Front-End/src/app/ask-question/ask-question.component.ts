@@ -14,7 +14,6 @@ import {StorageService} from "../_services/storage.service";
 export class AskQuestionComponent implements OnInit {
   title = "Ask a Question"
   listOfTags: number [] = []
-  userId: number = 2
   parentQuestionId = null;
   form: FormGroup;
   bold = false;
@@ -66,7 +65,7 @@ export class AskQuestionComponent implements OnInit {
         this.form.get('title')?.value,
         this.form.get('questionText')?.value,
         this.parentQuestionId,
-        this.userId,
+        this.getAppUserId(),
         this.listOfTags);
       this.router.navigate(['/questions']);
     }

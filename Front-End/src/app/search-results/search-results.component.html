@@ -1,5 +1,6 @@
 <div class="proba" *ngIf="loaded; else loadingTemplate">
   <app-heading [title]="title"></app-heading>
+  <hr>
   <div class="questions">
     <app-question *ngFor="let question of allQuestions | paginate: {
                   itemsPerPage: tableSize,

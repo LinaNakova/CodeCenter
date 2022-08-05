@@ -1,9 +1,9 @@
 <div class="card mb-3" >
   <div class="row g-0">
     <div class="col-md-2 card-body">
-      <button type="button" (click)="postLike()" [disabled]="disableUp" class="arrow"><i class="gg-arrow-up-o"></i></button>
+      <button type="button" (click)="postLike()" [disabled]="liked == true" class="arrow"><i class="gg-arrow-up-o"></i></button>
       <p id="numVotes">{{likes}}</p>
-      <button type="button" (click)="postUnlike()" [disabled]="disableDown" class="arrow"><i class="gg-arrow-down-o"></i></button>
+      <button type="button" (click)="postUnlike()" [disabled]="liked == false" class="arrow"><i class="gg-arrow-down-o"></i></button>
     </div>
     <div class="col-md-8">
       <div class="card-body">
