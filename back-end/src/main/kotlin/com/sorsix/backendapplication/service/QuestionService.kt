@@ -214,4 +214,15 @@ class QuestionService(
             .filter { it.parentQuestion == null }
 
     }
+    fun checkIfLikedByUser(qid:Long, uid:Long): Boolean?
+    {
+        return this.likeUnlikeRepository.findAll()
+            .filter { it.question.id == qid && it.appUser.id==uid }[0].like_unlike
+
+    }
+//     likeUnlikeRepository.findBy(
+//            appUserService.findAppUserByIdOrNull(uid)!!,
+//            findById(qid)!!
+//        ).like_unlike
+
 }

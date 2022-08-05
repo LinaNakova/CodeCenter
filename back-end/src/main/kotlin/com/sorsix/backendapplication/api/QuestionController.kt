@@ -91,7 +91,6 @@ class QuestionController(
     @GetMapping("/tagged/{word}")
     fun getAllQuestionsWithMentionedWord(@PathVariable("word") word: String): List<Question>? {
         return questionService.findAllQuestionsWithMentionedWord(word);
-
     }
 
     @GetMapping("/tags/{id}")
@@ -190,6 +189,12 @@ class QuestionController(
     fun sortByDateDescending() : List<Question>?
     {
         return this.questionService.sortByDateDescending()
+    }
+
+    @GetMapping("/checkIfLikedByUser/{qid}/{uid}")
+    fun getCheckIfLikedByUser(@PathVariable qid : Long, @PathVariable uid: Long) : Boolean?
+    {
+        return this.questionService.checkIfLikedByUser(qid, uid)
     }
 
 }
