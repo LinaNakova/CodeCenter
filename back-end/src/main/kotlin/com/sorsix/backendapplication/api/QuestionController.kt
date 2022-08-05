@@ -191,4 +191,10 @@ class QuestionController(
         return this.questionService.sortByDateDescending()
     }
 
+    @GetMapping("/checkIfLikedByUser/{qid}/{uid}")
+    fun getCheckIfLikedByUser(@PathVariable qid : Long, @PathVariable uid: Long) : Boolean?
+    {
+        return this.questionService.checkIfLikedByUser(qid, uid)
+    }
+
 }
