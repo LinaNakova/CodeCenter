@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*
 class QuestionController(
     val questionService: QuestionService,
     val tagService: TagService,
-    val appUserService: AppUserService,
+   // val appUserService: AppUserService,
 ) {
 
     @GetMapping
@@ -126,17 +126,17 @@ class QuestionController(
         return this.questionService.getLikes(id)
     }
 
-    @PostMapping("/closeQuestion")
-    fun closeQuestion(@RequestBody closeQuestionRequest: CloseQuestionRequest): Any {
-        val question: Question? = questionService.findById(closeQuestionRequest.questionId);
-        val appUser: AppUser? = appUserService.findAppUserByIdOrNull(closeQuestionRequest.userId);
-        if (appUser != null) {
-            if (question?.user?.id == appUser?.id || appUser.appUserRole.equals("ADMIN")) {
-                question?.let { questionService.closeQuestion(it.id) };
-            }
-        }
-        return ResponseEntity.ok().body(question);
-    }
+//    @PostMapping("/closeQuestion")
+//    fun closeQuestion(@RequestBody closeQuestionRequest: CloseQuestionRequest): Any {
+//        val question: Question? = questionService.findById(closeQuestionRequest.questionId);
+//        val appUser: AppUser? = appUserService.findAppUserByIdOrNull(closeQuestionRequest.userId);
+//        if (appUser != null) {
+//            if (question?.user?.id == appUser?.id || appUser.appUserRole.equals("ADMIN")) {
+//                question?.let { questionService.closeQuestion(it.id) };
+//            }
+//        }
+//        return ResponseEntity.ok().body(question);
+//    }
 
     @PostMapping("/likes")
     fun like(@RequestBody body: LikeRequest): ResponseEntity<Any> {

@@ -162,10 +162,10 @@ class QuestionService(
 
     }
 
-    @Transactional
-    fun closeQuestion(questionId: Long) {
-        this.questionRepository.closeQuestion(questionId);
-    }
+//    @Transactional
+//    fun closeQuestion(questionId: Long) {
+//        this.questionRepository.closeQuestion(questionId);
+//    }
 
     @Transactional
     fun increaseViews(id: Long) {

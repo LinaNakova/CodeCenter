@@ -21,9 +21,9 @@ interface QuestionRepository : JpaRepository<Question, Long> {
     @Query("update Question q set q.views = q.views+1 where q.id = :id")
     fun increaseViews(id: Long)
 
-    @Modifying
-    @Query("update Question q set q.is_answered = true where q.id = :id")
-    fun closeQuestion(id: Long)
+//    @Modifying
+//    @Query("update Question q set q.is_answered = true where q.id = :id")
+//    fun closeQuestion(id: Long)
 
     fun findAllByParentQuestion(parentQuestion: Question?, pageable: Pageable): Page<Question>?
 }
