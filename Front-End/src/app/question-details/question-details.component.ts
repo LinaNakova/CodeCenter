@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {CodeService} from "../code.service";
 import {QuestionInterface} from "../questionInterface";
-import {filter, map, Observable, Subject, take, takeUntil} from "rxjs";
+import { filter, map, Observable, Subject, take, takeUntil} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ActivatedRoute} from "@angular/router";
 import {TagInterface} from "../tagInterface";
@@ -13,18 +13,18 @@ import {StorageService} from "../_services/storage.service";
   styleUrls: ['./question-details.component.css']
 })
 export class QuestionDetailsComponent implements OnInit, OnDestroy {
-  input1: String | undefined
-  input2: String | undefined
+  input1:String|undefined
+  input2:String|undefined
   question: QuestionInterface | undefined
   form: FormGroup;
   userId = 1;
   answers: QuestionInterface[] = [];
   id: number | undefined;
   destroySubject$ = new Subject<void>();
-  tags: TagInterface [] = []
+  tags : TagInterface [] = []
   views: number | undefined
   badAnswer = false
-  loaded: boolean = false;
+  loaded : boolean = false;
 
   constructor(public fb: FormBuilder,
               private service: CodeService,
@@ -46,8 +46,8 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
     this.getQuestionTags()
     this.increaseViews()
   }
-
-  getId() {
+  getId()
+  {
     this.route.paramMap.pipe(
       takeUntil(this.destroySubject$),
       filter(paramMap => paramMap.has('id')),
@@ -56,46 +56,46 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       next: (id: number) => {
         this.id = id;
       },
-      error: (any) => {
+      error:(any) => {
         console.log(any)
       }
     });
   }
-
-  getQuestionDetails() {
+  getQuestionDetails()
+  {
     this.service.getQuestionDetails(this.id!).pipe(
       takeUntil(this.destroySubject$)).subscribe({
       next: (q) => {
         this.question = q
-        this.loaded = true
+        this.loaded=true
       },
-      error: (any) => {
+      error:(any) => {
         console.log(any)
       }
     })
   }
-
-  getQuestionAnswers() {
+  getQuestionAnswers()
+  {
     this.service.getQuestionAnswers(this.id!)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
         next: (answers) => {
           this.answers = answers;
         },
-        error: (any) => {
+        error:(any) => {
           console.log(any)
         }
       })
   }
-
-  getQuestionTags() {
+  getQuestionTags()
+  {
     this.service.getQuestionTags(this.id!)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
         next: (tags) => {
           this.tags = tags;
         },
-        error: (any) => {
+        error:(any) => {
           console.log(any)
         }
       })
@@ -107,14 +107,15 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
     return undefined;
   }
 
-
   submitForm() {
     if (this.form.get('title')?.value == ""
       || this.form.get('questionText')?.value == ""
       || this.form.get('title')?.value == null
-      || this.form.get('questionText')?.value == null) {
+      || this.form.get('questionText')?.value == null)
+    {
       this.badAnswer = true;
-    } else {
+    }
+    else {
       this.service.postAnswer(
         this.form.get('title')?.value,
         this.form.get('questionText')?.value,
@@ -128,53 +129,54 @@ export class QuestionDetailsComponent implements OnInit, OnDestroy {
       this.input2 = ""
     }
   }
-
-  increaseViews() {
+  increaseViews()
+  {
     this.service.increaseViews(this.id!!)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
-        next: (any) => {
+        next : (any) => {
           this.getViews()
         },
-        error: (any) => {
+        error:(any) => {
           console.log(any)
         }
       })
   }
-
-  getViews() {
+  getViews()
+  {
     this.service.getViews(this.id!!)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
-        next: (num) => {
+        next: (num)=>{
           this.views = num
         },
-        error: (any) => {
+        error:(any) => {
           console.log(any)
         }
       })
   }
-
   ngOnDestroy() {
     this.destroySubject$.next();
     this.destroySubject$.complete();
   }
-
-  getAscendingQuestions() {
+  getAscendingQuestions()
+  {
     this.service.getSortedByLikesAscending(this.question!!.id)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
-        next: (sorted) => {
+        next: (sorted) =>
+        {
           this.answers = sorted
         }
       })
   }
-
-  getDescendingQuestions() {
+  getDescendingQuestions()
+  {
     this.service.getSortedByLikesDescending(this.question!!.id)
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
-        next: (sorted) => {
+        next: (sorted) =>
+        {
           this.answers = sorted
         }
       })

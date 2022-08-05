@@ -19,14 +19,11 @@ class QuestionService(
     val tagRepository: TagRepository,
     val questionTagRepository: QuestionTagRepository,
     val appUserRepository: AppUserRepository,
-    val likeUnlikeRepository: LikeUnlikeRepository,
+    val likeUnlikeRepository: LikeUnlikeRepository
 ) {
 
-    fun findAllQuestionsWithoutAnswers(page: Int, size: Int): List<Question>? {
-        val paging: Pageable = PageRequest.of(page, size);
-        return questionRepository
-            .findAllByParentQuestion(null, paging)
-            ?.toList()
+    fun findAllQuestionsWithoutAnswers(): List<Question>? {
+        return questionRepository.findAll().filter { it.parentQuestion == null }
     }
 
     fun findAll(): List<Question>? {
@@ -59,7 +56,7 @@ class QuestionService(
             val question = Question(
                 title = title, questionText = questionText,
                 parentQuestion = parentQuestion, user = appUser,
-                views = 0, date = Timestamp.valueOf(LocalDateTime.now()), isAnswered = false
+                views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
             println(question)
             println(tags);
@@ -88,7 +85,7 @@ class QuestionService(
             val question = Question(
                 title = title, questionText = questionText,
                 parentQuestion = parentQuestion, user = appUser,
-                views = 0, date = Timestamp.valueOf(LocalDateTime.now()), isAnswered = false
+                views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
             println(question)
             questionRepository.save(question);
@@ -161,11 +158,6 @@ class QuestionService(
 
 
     }
-
-//    @Transactional
-//    fun closeQuestion(questionId: Long) {
-//        this.questionRepository.closeQuestion(questionId);
-//    }
 
     @Transactional
     fun increaseViews(id: Long) {

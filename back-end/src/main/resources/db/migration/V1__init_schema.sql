@@ -26,7 +26,6 @@ CREATE TABLE question
     app_user_id        bigint not null,
     views              bigint    default 0,
     date               timestamp default now(),
-    is_answered         boolean   default false,
     constraint fk_question_user_id foreign key (app_user_id) references app_users (id),
     constraint fk_question_parent_question_id foreign key (parent_question_id) references question (id)
 );

@@ -32,8 +32,5 @@ data class Question(
     val views: Int,
 
     @Column(name = "date")
-    val date: Timestamp,
-
-    @Column(name = "is_answered")
-    val isAnswered: Boolean?,
+    val date: Timestamp
 )

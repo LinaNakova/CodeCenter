@@ -4,7 +4,6 @@ import com.sorsix.backendapplication.api.dto.AnswerRequest
 import com.sorsix.backendapplication.api.dto.LikeRequest
 import com.sorsix.backendapplication.api.dto.QuestionRequest
 import com.sorsix.backendapplication.domain.*
-import com.sorsix.backendapplication.service.AppUserService
 import com.sorsix.backendapplication.service.QuestionService
 import com.sorsix.backendapplication.service.TagService
 import org.springframework.data.domain.PageRequest
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.*
 class QuestionController(
     val questionService: QuestionService,
     val tagService: TagService,
-   // val appUserService: AppUserService,
 ) {
 
     @GetMapping
@@ -28,8 +26,8 @@ class QuestionController(
     }
 
     @GetMapping("/withoutAnswers")
-    fun getAllQuestionsWithoutAnswers(@RequestParam page: Int): List<Question>? {
-        return questionService.findAllQuestionsWithoutAnswers(page, 5);
+    fun getAllQuestionsWithoutAnswers(): List<Question>? {
+        return questionService.findAllQuestionsWithoutAnswers();
     }
 
     @PostMapping
@@ -126,18 +124,6 @@ class QuestionController(
         return this.questionService.getLikes(id)
     }
 
-//    @PostMapping("/closeQuestion")
-//    fun closeQuestion(@RequestBody closeQuestionRequest: CloseQuestionRequest): Any {
-//        val question: Question? = questionService.findById(closeQuestionRequest.questionId);
-//        val appUser: AppUser? = appUserService.findAppUserByIdOrNull(closeQuestionRequest.userId);
-//        if (appUser != null) {
-//            if (question?.user?.id == appUser?.id || appUser.appUserRole.equals("ADMIN")) {
-//                question?.let { questionService.closeQuestion(it.id) };
-//            }
-//        }
-//        return ResponseEntity.ok().body(question);
-//    }
-
     @PostMapping("/likes")
     fun like(@RequestBody body: LikeRequest): ResponseEntity<Any> {
         val result = this.questionService.postLike(body)
@@ -191,19 +177,18 @@ class QuestionController(
     fun getSortedByAnswersAscending(): List<Question>? {
         return this.questionService.sortByAnswersAscending()
     }
-
     @GetMapping("/sortedByAnswersDescending")
     fun getSortedByAnswersDescending(): List<Question>? {
         return this.questionService.sortByAnswersDescending()
     }
-
     @GetMapping("/sortedByTimestamp")
-    fun sortByDateAscending(): List<Question>? {
+    fun sortByDateAscending() : List<Question>?
+    {
         return this.questionService.sortByDateAscending()
     }
-
     @GetMapping("/sortedByTimestampDescending")
-    fun sortByDateDescending(): List<Question>? {
+    fun sortByDateDescending() : List<Question>?
+    {
         return this.questionService.sortByDateDescending()
     }
 
