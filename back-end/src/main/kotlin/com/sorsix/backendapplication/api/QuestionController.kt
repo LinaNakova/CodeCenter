@@ -91,7 +91,6 @@ class QuestionController(
     @GetMapping("/tagged/{word}")
     fun getAllQuestionsWithMentionedWord(@PathVariable("word") word: String): List<Question>? {
         return questionService.findAllQuestionsWithMentionedWord(word);
-
     }
 
     @GetMapping("/tags/{id}")
