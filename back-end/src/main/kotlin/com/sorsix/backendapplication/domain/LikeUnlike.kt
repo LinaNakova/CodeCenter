@@ -18,5 +18,5 @@ data class LikeUnlike(
     val question: Question,
 
     @Column(name = "like_unlike")
-    val like_unlike: Boolean
+    val likeUnlike: Boolean
 ) {}

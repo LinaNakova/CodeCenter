@@ -3,13 +3,10 @@ package com.sorsix.backendapplication.service
 import com.sorsix.backendapplication.api.dto.LikeRequest
 import com.sorsix.backendapplication.domain.*
 import com.sorsix.backendapplication.repository.*
-import org.springframework.data.domain.PageRequest
-import org.springframework.data.domain.Pageable
 import org.springframework.data.domain.Sort
 import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Service
 import java.sql.Timestamp
-import java.time.Instant.now
 import java.time.LocalDateTime
 import javax.transaction.Transactional
 
@@ -46,7 +43,7 @@ class QuestionService(
             if (it != null) {
                 questionRepository.findByIdOrNull(it)
             } else {
-                null;
+                null
             }
         }
         return if (tags == null || appUser == null) {
@@ -58,11 +55,9 @@ class QuestionService(
                 parentQuestion = parentQuestion, user = appUser,
                 views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
-            println(question)
-            println(tags);
-            questionRepository.save(question);
+            questionRepository.save(question)
             tags.forEach { it -> questionTagRepository.save(QuestionTag(0, question = question, tag = it)) }
-            QuestionCreated(question = question);
+            QuestionCreated(question = question)
         }
 
 
@@ -87,18 +82,17 @@ class QuestionService(
                 parentQuestion = parentQuestion, user = appUser,
                 views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
-            println(question)
-            questionRepository.save(question);
-            QuestionCreated(question = question);
+            questionRepository.save(question)
+            QuestionCreated(question = question)
         }
     }
 
     fun findById(id: Long): Question? {
-        return questionRepository.findByIdOrNull(id);
+        return questionRepository.findByIdOrNull(id)
     }
 
     fun getAnswersForQuestion(id: Long): List<Question>? {
-        return questionRepository.findAll().filter { id == it.parentQuestion?.id };
+        return questionRepository.findAll().filter { id == it.parentQuestion?.id }
     }
 
     fun findAllQuestionsWithMentionedWord(word: String): List<Question>? {
@@ -132,8 +126,8 @@ class QuestionService(
     fun getLikes(id: Long): Int {
         val (first, second) = this.likeUnlikeRepository.findAll()
             .filter { likeUnlike -> likeUnlike.question.id == id }
-            .partition { likeUnlike -> likeUnlike.like_unlike }
-        return first.count() - second.count();
+            .partition { likeUnlike -> likeUnlike.likeUnlike }
+        return first.count() - second.count()
     }
 
     @Transactional
@@ -146,13 +140,13 @@ class QuestionService(
             LikeFailed("error liking")
         } else {
             if (likeUnlikeRepository.findByAppUserAndQuestion(u, q) == null) {
-                val entry = LikeUnlike(question = q, appUser = u, like_unlike = body.like)
+                val entry = LikeUnlike(question = q, appUser = u, likeUnlike = body.like)
                 likeUnlikeRepository.save(entry)
-                LikeCreated(like = entry);
+                LikeCreated(like = entry)
             } else {
-                val entry = likeUnlikeRepository.findByAppUserAndQuestion(u, q);
+                val entry = likeUnlikeRepository.findByAppUserAndQuestion(u, q)
                 this.likeUnlikeRepository.changeLike(entry!!.id, body.like)
-                LikeCreated(like = entry);
+                LikeCreated(like = entry)
             }
         }
 
@@ -161,7 +155,6 @@ class QuestionService(
 
     @Transactional
     fun increaseViews(id: Long) {
-        println("Inside backend service call\n")
         this.questionRepository.increaseViews(id)
     }
 
@@ -217,12 +210,8 @@ class QuestionService(
     fun checkIfLikedByUser(qid:Long, uid:Long): Boolean?
     {
         return this.likeUnlikeRepository.findAll()
-            .filter { it.question.id == qid && it.appUser.id==uid }[0].like_unlike
+            .filter { it.question.id == qid && it.appUser.id==uid }[0].likeUnlike
 
     }
-//     likeUnlikeRepository.findBy(
-//            appUserService.findAppUserByIdOrNull(uid)!!,
-//            findById(qid)!!
-//        ).like_unlike
 
 }

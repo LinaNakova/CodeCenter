@@ -10,10 +10,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface LikeUnlikeRepository : JpaRepository<LikeUnlike, Long> {
+
     fun findByAppUserAndQuestion(appUser: AppUser, question: Question): LikeUnlike?
 
-
     @Modifying
-    @Query("update LikeUnlike l set l.like_unlike = :like where l.id = :id")
+    @Query("update LikeUnlike l set l.likeUnlike = :like where l.id = :id")
     fun changeLike(id: Long, like: Boolean)
 }

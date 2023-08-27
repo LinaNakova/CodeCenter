@@ -14,12 +14,8 @@ import org.springframework.stereotype.Repository
 interface QuestionRepository : JpaRepository<Question, Long> {
 
     @Modifying
-    @Query("update Question q set q.title = :name where q.id = :id")
-    fun changeName(name: String, id: Long)
-
-    @Modifying
     @Query("update Question q set q.views = q.views+1 where q.id = :id")
     fun increaseViews(id: Long)
 
-    fun findAllByParentQuestion(parentQuestion: Question?, pageable: Pageable) : Page<Question>?
+    fun findAllByParentQuestion(parentQuestion: Question) : List<Question>
 }
