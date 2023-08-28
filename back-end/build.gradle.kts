@@ -6,6 +6,7 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
+    id ("net.foragerr.jmeter") version "1.0.5-2.13"
 }
 
 group = "com.sorsix"
