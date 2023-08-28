@@ -5,7 +5,7 @@ import com.sorsix.backendapplication.service.AppUserService
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin("http://localhost:4200")
+@CrossOrigin("*")
 @RequestMapping("/api/users")
 class AppUserController(
     val userService : AppUserService

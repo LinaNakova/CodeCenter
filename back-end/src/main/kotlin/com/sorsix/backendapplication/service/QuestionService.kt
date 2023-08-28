@@ -47,7 +47,7 @@ class QuestionService(
             }
         }
         return if (tags == null || appUser == null) {
-            QuestionFailed("error :)")
+            QuestionFailed("error")
         } else {
 
             val question = Question(
@@ -56,11 +56,9 @@ class QuestionService(
                 views = 0, date = Timestamp.valueOf(LocalDateTime.now())
             )
             questionRepository.save(question)
-            tags.forEach { it -> questionTagRepository.save(QuestionTag(0, question = question, tag = it)) }
+            tags.forEach { questionTagRepository.save(QuestionTag(question = question, tag = it)) }
             QuestionCreated(question = question)
         }
-
-
     }
 
     @Transactional
@@ -75,7 +73,7 @@ class QuestionService(
         }
         val parentQuestion: Question? = parentQuestionId.let { questionRepository.findByIdOrNull(it) }
         return if (appUser == null || parentQuestion == null) {
-            QuestionFailed("error creating answer:)")
+            QuestionFailed("error")
         } else {
             val question = Question(
                 title = title, questionText = questionText,
