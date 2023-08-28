@@ -203,11 +203,13 @@ class QuestionService(
             .filter { it.parentQuestion == null }
 
     }
-    fun checkIfLikedByUser(qid:Long, uid:Long): Boolean?
-    {
-        return this.likeUnlikeRepository.findAll()
-            .filter { it.question.id == qid && it.appUser.id==uid }[0].likeUnlike
 
+    fun checkIfLikedByUser(qid: Long, uid: Long): Boolean? {
+        val result = this.likeUnlikeRepository.findAll()
+            .filter { it.question.id == qid && it.appUser.id == uid }
+        return if (result.isNotEmpty()) {
+            result[0].likeUnlike
+        } else null
     }
 
 }

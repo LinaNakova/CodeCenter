@@ -65,7 +65,6 @@ class AuthController(
         val jwt = jwtUtils.generateJwtToken(authentication)
 
         val appUser = authentication.principal as AppUser
-        val role: String = appUser.appUserRole.toString()
 
         return ResponseEntity.ok(
             JwtResponse(

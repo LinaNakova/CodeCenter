@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 class AppUserController(
     val userService : AppUserService
 ) {
-    @GetMapping()
+    @GetMapping
     fun getAllUsers() : List<AppUser>?
     {
         return this.userService.findAll()

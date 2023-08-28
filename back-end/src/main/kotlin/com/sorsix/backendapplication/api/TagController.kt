@@ -2,7 +2,6 @@ package com.sorsix.backendapplication.api
 
 import com.sorsix.backendapplication.api.dto.TagRequest
 import com.sorsix.backendapplication.domain.*
-import com.sorsix.backendapplication.service.QuestionService
 import com.sorsix.backendapplication.service.TagService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,8 +10,7 @@ import org.springframework.web.bind.annotation.*
 @CrossOrigin("*")
 @RequestMapping("/api/tag")
 class TagController(
-    val tagService: TagService,
-    val questionService: QuestionService
+    val tagService: TagService
 ) {
 
     @GetMapping
