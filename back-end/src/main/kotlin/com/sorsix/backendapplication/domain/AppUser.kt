@@ -36,6 +36,5 @@ data class AppUser(
 
     override fun isCredentialsNonExpired() = true
 
-    // ne znam za sto e ova!?
     override fun isEnabled() = true
 }

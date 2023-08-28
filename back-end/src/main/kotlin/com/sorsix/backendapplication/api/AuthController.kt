@@ -33,12 +33,11 @@ class AuthController(
     "https://i.ibb.co/0DLpV4S/Pngtree-smiling-people-avatar-set-different-7691526-1.png")
     fun generateRandomAvatar() : String
     {
-        val random = (0..5).random();
+        val random = (0..5).random()
         return links.get(random)
     }
     @PostMapping("/register")
     fun register(@RequestBody registerRequest: RegisterRequest): ResponseEntity<Any> {
-        // TODO Checks if user is valid :)
         val appUser = AppUser(
             0L,
             name = registerRequest.name,
@@ -48,10 +47,9 @@ class AuthController(
             username = registerRequest.username,
             appUserRole = AppUserRole.USER,
             link_img = generateRandomAvatar()
-            //TODO THE appUserRole
         )
         appUserService.saveUser(appUser)
-        return ResponseEntity.ok().body(appUser);
+        return ResponseEntity.ok().body(appUser)
 
     }
 
@@ -63,12 +61,11 @@ class AuthController(
                 loginRequest.username, loginRequest.password
             )
         )
-        println(authentication)
         SecurityContextHolder.getContext().authentication = authentication
         val jwt = jwtUtils.generateJwtToken(authentication)
 
-        val appUser = authentication.principal as AppUser;
-        val role: String = appUser.appUserRole.toString();
+        val appUser = authentication.principal as AppUser
+        val role: String = appUser.appUserRole.toString()
 
         return ResponseEntity.ok(
             JwtResponse(

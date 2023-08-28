@@ -134,8 +134,6 @@ class QuestionService(
     fun postLike(body: LikeRequest): LikeResult {
         val q = questionRepository.findByIdOrNull(body.question_id)
         val u = appUserRepository.findByIdOrNull(body.user_id)
-        print(q)
-        print(u)
         return if (q == null || u == null) {
             LikeFailed("error liking")
         } else {

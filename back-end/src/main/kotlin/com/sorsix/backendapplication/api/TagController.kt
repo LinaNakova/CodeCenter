@@ -16,7 +16,7 @@ class TagController(
 
     @GetMapping
     fun getTags(): List<Tag>? {
-        return tagService.getAllTags();
+        return tagService.getAllTags()
     }
 
     @GetMapping("/search/{tag}")
@@ -33,16 +33,16 @@ class TagController(
 
         val resultString = when (result) {
             is TagCreated -> {
-                result.tag.toString();
+                result.tag.toString()
             }
             is TagFailed -> {
-                "Failed because " + result.errorMessage;
+                "Failed because " + result.errorMessage
             }
         }
         return if (result.success()) {
-            ResponseEntity.ok(resultString);
+            ResponseEntity.ok(resultString)
         } else {
-            ResponseEntity.badRequest().body(resultString);
+            ResponseEntity.badRequest().body(resultString)
         }
     }
 
@@ -58,6 +58,6 @@ class TagController(
 
     @GetMapping("/tagsFromUser/{id}")
     fun getTagsFromUser(@PathVariable id: Long): Set<Tag>? {
-        return this.tagService.getTagsFromUser(id);
+        return this.tagService.getTagsFromUser(id)
     }
 }

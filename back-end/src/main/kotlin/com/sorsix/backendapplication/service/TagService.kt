@@ -29,9 +29,8 @@ class TagService(
                 name = name,
                 description = description
             )
-            println(tag)
-            tagRepository.save(tag);
-            TagCreated(tag = tag);
+            tagRepository.save(tag)
+            TagCreated(tag = tag)
         }
     }
 

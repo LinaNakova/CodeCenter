@@ -15,6 +15,6 @@ class TestApi(
 ) {
 
     @GetMapping
-    fun getList(): MutableList<Question> = questionRepository.findAll();
+    fun getList(): MutableList<Question> = questionRepository.findAll()
 
 }

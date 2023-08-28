@@ -22,12 +22,12 @@ class QuestionController(
 
     @GetMapping
     fun getAll(): List<Question>? {
-        return questionService.findAll();
+        return questionService.findAll()
     }
 
     @GetMapping("/withoutAnswers")
     fun getAllQuestionsWithoutAnswers(): List<Question>? {
-        return questionService.findAllQuestionsWithoutAnswers();
+        return questionService.findAllQuestionsWithoutAnswers()
     }
 
     @PostMapping
@@ -42,16 +42,16 @@ class QuestionController(
 
         val resultString = when (result) {
             is QuestionCreated -> {
-                result.question.toString();
+                result.question.toString()
             }
             is QuestionFailed -> {
-                "Failed because " + result.errorMessage;
+                "Failed because " + result.errorMessage
             }
         }
         return if (result.success()) {
-            ResponseEntity.ok(resultString);
+            ResponseEntity.ok(resultString)
         } else {
-            ResponseEntity.badRequest().body(resultString);
+            ResponseEntity.badRequest().body(resultString)
         }
     }
 
@@ -65,32 +65,32 @@ class QuestionController(
         )
         val resultString = when (result) {
             is QuestionCreated -> {
-                result.question;
+                result.question
             }
             is QuestionFailed -> {
-                "Failed because " + result.errorMessage;
+                "Failed because " + result.errorMessage
             }
         }
         return if (result.success()) {
-            ResponseEntity.ok(resultString);
+            ResponseEntity.ok(resultString)
         } else {
-            ResponseEntity.badRequest().body(resultString);
+            ResponseEntity.badRequest().body(resultString)
         }
     }
 
     @GetMapping("/{id}")
     fun getQuestionById(@PathVariable id: Long): Question? {
-        return questionService.findById(id);
+        return questionService.findById(id)
     }
 
     @GetMapping("/answers/{id}")
     fun getAnswersForQuestion(@PathVariable id: Long): List<Question>? {
-        return questionService.getAnswersForQuestion(id);
+        return questionService.getAnswersForQuestion(id)
     }
 
     @GetMapping("/tagged/{word}")
     fun getAllQuestionsWithMentionedWord(@PathVariable("word") word: String): List<Question>? {
-        return questionService.findAllQuestionsWithMentionedWord(word);
+        return questionService.findAllQuestionsWithMentionedWord(word)
     }
 
     @GetMapping("/tags/{id}")
@@ -110,12 +110,12 @@ class QuestionController(
 
     @GetMapping("/sortedByViewsAscending")
     fun getSortedByViewsAscending(): List<Question> {
-        return this.questionService.getSortedByViewsAscending();
+        return this.questionService.getSortedByViewsAscending()
     }
 
     @GetMapping("/sortedByViewsDescending")
     fun getSortedByViewsDescending(): List<Question> {
-        return this.questionService.getSortedByViewsDescending();
+        return this.questionService.getSortedByViewsDescending()
     }
 
     @GetMapping("/likes/{id}")
@@ -131,19 +131,18 @@ class QuestionController(
                 result.like
             }
             is LikeFailed -> {
-                "Failed because " + result.errorMessage;
+                "Failed because " + result.errorMessage
             }
         }
         return if (result.success()) {
-            ResponseEntity.ok(resultString);
+            ResponseEntity.ok(resultString)
         } else {
-            ResponseEntity.badRequest().body(resultString);
+            ResponseEntity.badRequest().body(resultString)
         }
     }
 
     @PostMapping("/increase/{id}")
     fun increaseViews(@PathVariable id: Long) {
-        println("Inside backend  controller call\n")
         this.questionService.increaseViews(id)
     }
 
@@ -154,22 +153,22 @@ class QuestionController(
 
     @GetMapping("/fromUser/{id}")
     fun getQuestionsFromUser(@PathVariable id: Long): List<Question>? {
-        return this.questionService.getQuestionsFromUser(id);
+        return this.questionService.getQuestionsFromUser(id)
     }
 
     @GetMapping("/answersFromUser/{id}")
     fun getAnswersFromUser(@PathVariable id: Long): List<Question>? {
-        return this.questionService.getAnswersFromUser(id);
+        return this.questionService.getAnswersFromUser(id)
     }
 
     @GetMapping("/sortedByLikesAscending/{id}")
     fun getSortByLikes(@PathVariable id: Long): List<Question>? {
-        return this.questionService.sortByLikes(id);
+        return this.questionService.sortByLikes(id)
     }
 
     @GetMapping("/sortedByLikesDescending/{id}")
     fun getSortByLikesDescending(@PathVariable id: Long): List<Question>? {
-        return this.questionService.sortByLikesDescending(id);
+        return this.questionService.sortByLikesDescending(id)
     }
 
     @GetMapping("/sortedByAnswersAscending")

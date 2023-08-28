@@ -18,6 +18,6 @@ class AppUserController(
     @GetMapping("/{id}")
     fun getUserById(@PathVariable id : Long) : AppUser?
     {
-        return this.userService.findAppUserByIdOrNull(id);
+        return this.userService.findAppUserByIdOrNull(id)
     }
 }
