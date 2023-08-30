@@ -23,7 +23,7 @@ class TagService(
 
     fun createTag(name: String, description: String): TagResult {
         return if (name == "" || description == "") {
-            TagFailed("error :)")
+            TagFailed("error")
         } else {
             val tag = Tag(
                 name = name,
