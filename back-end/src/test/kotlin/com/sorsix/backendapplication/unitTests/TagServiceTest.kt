@@ -134,7 +134,8 @@ class TagServiceTest {
             QuestionTag(question = questions[1], tag = tags[2]),
         )
         every { questionTagRepository.findAll() } returns questionTags
-        assertEquals(tagService.getTagsFromUser(user.id), questionTags
+        every { tagRepository.findByIdOrNull(any()) } returns tags[0]
+        assertEquals( tagService.getAllQuestionsWithTag(user.id), questionTags
             .filter { questionTag -> questionTag.tag == tagRepository.findByIdOrNull(tags[0].id) }
             .map { questionTag -> questionTag.question }
             .filter { question -> question.parentQuestion == null })
