@@ -11,25 +11,21 @@ import javax.transaction.Transactional
 @Service
 @Transactional
 class AppUserService(
-    val appUserRepository: AppUserRepository,
-    val activationTokenService: ActivationTokenService,
+    val appUserRepository: AppUserRepository
 ) : UserDetailsService {
 
     fun saveUser(appUser: AppUser) {
         appUserRepository.save(appUser)
-
     }
-    fun findAll() : List<AppUser>?
-    {
+
+    fun findAll(): List<AppUser>? {
         return appUserRepository.findAll()
     }
 
     override fun loadUserByUsername(username: String): UserDetails? {
         return appUserRepository.findByUsername(username)
-
     }
 
     fun findAppUserByIdOrNull(appUserId: Long): AppUser? = appUserRepository.findByIdOrNull(appUserId)
-
 
 }
