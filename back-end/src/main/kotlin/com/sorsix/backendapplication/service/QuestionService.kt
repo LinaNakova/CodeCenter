@@ -145,8 +145,6 @@ class QuestionService(
                 LikeCreated(like = entry)
             }
         }
-
-
     }
 
     @Transactional
