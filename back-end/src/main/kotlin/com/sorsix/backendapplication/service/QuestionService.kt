@@ -49,7 +49,6 @@ class QuestionService(
         return if (tags == null || appUser == null) {
             QuestionFailed("error")
         } else {
-
             val question = Question(
                 title = title, questionText = questionText,
                 parentQuestion = parentQuestion, user = appUser,
