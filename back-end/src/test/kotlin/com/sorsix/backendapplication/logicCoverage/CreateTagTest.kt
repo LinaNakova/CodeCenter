@@ -14,7 +14,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 
 
-class LogicCoverageTest {
+class CreateTagTest {
 
     private lateinit var tagRepository: TagRepository
     private lateinit var questionTagRepository: QuestionTagRepository
@@ -61,6 +61,5 @@ class LogicCoverageTest {
 
         Assertions.assertEquals(tag, (result as TagCreated).tag)
     }
-
 
 }
