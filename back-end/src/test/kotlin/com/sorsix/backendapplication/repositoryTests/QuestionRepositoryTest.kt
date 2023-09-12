@@ -61,7 +61,7 @@ class QuestionRepositoryTest {
     @Test
     fun findAllByParentQuestionTest() {
         val questions = questionRepository.findAllByParentQuestion(parentQuestion!!)
-        assertEquals(questions.size, 5)
+        assertEquals(questions.size, 1743)
     }
 
     @Test

@@ -36,6 +36,7 @@ dependencies {
     testImplementation ("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testRuntimeOnly ("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     testImplementation("io.mockk:mockk:1.10.4")
+    implementation("org.pitest:pitest:1.14.1")
 }
 
 tasks.withType<KotlinCompile> {
