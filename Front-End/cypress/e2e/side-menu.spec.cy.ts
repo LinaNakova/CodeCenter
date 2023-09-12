@@ -1,5 +1,5 @@
 describe('Loginpage', () => {
-  it('should visit the loginpage', () => {
+  it('should navigate from the side menu correctly', () => {
     cy.visit('http://localhost:4200');
     cy.get('a[href="/questions"]').click()
     cy.url().should('include', '/questions');

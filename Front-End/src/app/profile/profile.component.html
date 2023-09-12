@@ -12,21 +12,21 @@
     </div>
     <div class="container">
       <div>
-        <h4>Asked Questions</h4>
+        <h4 id="asked-questions">Asked Questions</h4>
         <h6 *ngIf="questions.length == 0">No asked questions yet...</h6>
         <div class="questions">
           <app-small-question-card *ngFor="let question of questions" [question]="question"></app-small-question-card>
         </div>
       </div>
       <div>
-        <h4>Answers For Questions</h4>
+        <h4 id="answers-for-questions">Answers For Questions</h4>
         <h6 *ngIf="answers.length == 0">No given answers yet...</h6>
         <div class="questions">
           <app-small-answer-card *ngFor="let answer of answers" [question]="answer"></app-small-answer-card>
         </div>
       </div>
       <div>
-        <h4>Tags Mentioned In Asked Questions</h4>
+        <h4 id="mentioned-tags">Tags Mentioned In Asked Questions</h4>
         <h6 *ngIf="tags.length == 0">No tagged questions yet...</h6>
         <div class="questions">
           <app-tag *ngFor="let tag of tags" [t]="tag"></app-tag>

@@ -26,7 +26,7 @@
           <input type="text" class="form-control" #searchBox id="search-box" (input)="search(searchBox.value)">
           <ul class="search-result">
             <li *ngFor="let tag of tags$ | async" >
-              <a (click)="addToTagList(tag)">
+              <a (click)="addToTagList(tag)" class="tag-link">
                 <app-tag-for-search [t] = tag></app-tag-for-search>
               </a>
             </li>

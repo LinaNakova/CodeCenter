@@ -1,5 +1,5 @@
 describe('Login Test', () => {
-  it('should login successfully', () => {
+  it('should add tag successfully', () => {
     cy.visit('http://localhost:4200');
     cy.get('#login').click();
     cy.url().should('include', '/login');
