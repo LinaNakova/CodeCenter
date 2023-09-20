@@ -42,7 +42,7 @@ class LikeUnlikeRepositoryTest {
 
     @BeforeEach
     fun initDataForTests() {
-        user = userRepository.findByUsername("linanakova")
+        user = userRepository.findByUsername("test")
         parentQuestion = questionRepository.findById(1).get()
         question = Question(
             title = "Test Question",

@@ -39,7 +39,7 @@ class QuestionRepositoryTest {
 
     @BeforeEach
     fun getAppUer() {
-        appUser = userRepository.findById(5).get()
+        appUser = userRepository.findByUsername("test")
         parentQuestion = questionRepository.findById(1).get()
         question = Question(
             title = "Test Question",
@@ -61,7 +61,7 @@ class QuestionRepositoryTest {
     @Test
     fun findAllByParentQuestionTest() {
         val questions = questionRepository.findAllByParentQuestion(parentQuestion!!)
-        assertEquals(questions.size, 1743)
+        assertEquals(questions.size, 2)
     }
 
     @Test
